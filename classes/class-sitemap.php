@@ -9,6 +9,33 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
+	 * Get attachment
+	 *
+	 * @param $attachment_id
+	 *
+	 * @return array
+	 */
+	private function get_attachment( $attachment_id ) {
+		// Get attachment
+		$attachment = get_post( $attachment_id );
+
+		// Check if we've found an attachment
+		if ( null == $attachment ) {
+			return array();
+		}
+
+		// Return props
+		return array(
+				'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+				'caption'     => $attachment->post_excerpt,
+				'description' => $attachment->post_content,
+				'href'        => get_permalink( $attachment->ID ),
+				'src'         => $attachment->guid,
+				'title'       => $attachment->post_title
+		);
+	}
+
+	/**
 	 * Register the XML News sitemap with the main sitemap class.
 	 */
 	public function init() {
@@ -51,7 +78,7 @@ class WPSEO_News_Sitemap {
 		$items = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_modified_gmt, post_date, post_date_gmt, post_title, post_type
 									FROM $wpdb->posts
 									WHERE post_status='publish'
-									AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
+									AND (DATEDIFF(CURDATE(), post_modified_gmt)<=2)
 									AND post_type IN ($post_types)
 									ORDER BY post_date_gmt DESC
 									LIMIT 0, 1000" );
@@ -67,7 +94,7 @@ class WPSEO_News_Sitemap {
 				$item->post_status = 'publish';
 
 				if ( false != WPSEO_Meta::get_value( 'newssitemap-include', $item->ID ) && WPSEO_Meta::get_value( 'newssitemap-include', $item->ID ) == 'off' ) {
-					continue;
+//					continue;
 				}
 
 				if ( false != WPSEO_Meta::get_value( 'meta-robots', $item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $item->ID ), 'noindex' ) !== false ) {
@@ -184,9 +211,26 @@ class WPSEO_News_Sitemap {
 				// Also check if the featured image value is set.
 				$post_thumbnail_id = get_post_thumbnail_id( $item->ID );
 
-				if ( $post_thumbnail_id ) {
-					$post_thumbnail_url          = wp_get_attachment_url( $post_thumbnail_id );
-					$images[$post_thumbnail_url] = $item->post_title;
+				if ( '' != $post_thumbnail_id ) {
+
+					$attachment = $this->get_attachment( $post_thumbnail_id );
+
+					if ( count( $attachment ) > 0 ) {
+
+						$image = array();
+
+						if ( '' != $attachment['title'] ) {
+							$image['title'] = $attachment['title'];
+						}
+
+						if ( '' != $attachment['alt'] ) {
+							$image['alt'] = $attachment['alt'];
+						}
+
+						$images[$attachment['src']] = $image;
+
+					}
+
 				}
 
 				if ( isset( $images ) && count( $images ) > 0 ) {
