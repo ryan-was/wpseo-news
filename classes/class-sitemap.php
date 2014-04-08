@@ -235,6 +235,16 @@ class WPSEO_News_Sitemap {
 
 				if ( isset( $images ) && count( $images ) > 0 ) {
 					foreach ( $images as $src => $img ) {
+
+						/**
+						 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src
+						 *
+						 * @api string $src The image source
+						 *
+						 * @param object $item The post item
+						 */
+						$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $item );
+
 						$output .= "\t\t<image:image>\n";
 						$output .= "\t\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
 
