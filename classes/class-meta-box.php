@@ -16,11 +16,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function get_meta_boxes( $post_type = 'post' ) {
 		$mbs                             = array();
 		$stdgenre                        = ( isset( $this->options['newssitemap_default_genre'] ) ) ? $this->options['newssitemap_default_genre'] : 'blog';
-		$mbs['newssitemap-include']      = array(
-				"name"  => "newssitemap-include",
+		$mbs['newssitemap-exclude']      = array(
+				"name"  => "newssitemap-exclude",
 				"type"  => "checkbox",
 				"std"   => "on",
-				"title" => __( "Include in News Sitemap" )
+				"title" => __( "Exclude from News Sitemap" )
 		);
 		$mbs['newssitemap-keywords']      = array(
 				"name"  => "newssitemap-keywords",
