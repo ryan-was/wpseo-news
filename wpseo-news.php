@@ -37,7 +37,7 @@ class WPSEO_News {
 	 * @return array
 	 */
 	public static function get_options() {
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'enablexmlnewssitemap' => 'off', 'newssitemapname' => '', 'newssitemap_default_genre' => array(), 'newssitemap_default_keywords' => '' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'newssitemapname' => '', 'newssitemap_default_genre' => array(), 'newssitemap_default_keywords' => '' ) ) );
 	}
 
 	/**

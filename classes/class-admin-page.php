@@ -21,9 +21,6 @@ class WPSEO_News_Admin_Page {
 		// Introducten
 		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News. If it is, check the box below to enable the XML News Sitemap functionality.', 'wordpress-seo' ) . '</p>';
 
-		// Enable XML News Sitemaps
-		echo $wpseo_admin_pages->checkbox( 'enablexmlnewssitemap', __( 'Enable  XML News sitemaps functionality.', 'wordpress-seo' ) );
-
 		// Google News Publication Name
 		echo $wpseo_admin_pages->textinput( 'newssitemapname', __( 'Google News Publication Name', 'wordpress-seo' ) );
 
