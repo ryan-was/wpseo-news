@@ -110,8 +110,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		$content = '';
-		foreach ( $this->get_meta_boxes() as $meta_box ) {
-			$content .= $this->do_meta_box( $meta_box );
+		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
+			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo' ), $content );
 	}
