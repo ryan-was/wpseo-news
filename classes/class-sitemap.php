@@ -93,8 +93,8 @@ class WPSEO_News_Sitemap {
 			foreach ( $items as $item ) {
 				$item->post_status = 'publish';
 
-				if ( false != WPSEO_Meta::get_value( 'newssitemap-include', $item->ID ) && WPSEO_Meta::get_value( 'newssitemap-include', $item->ID ) == 'off' ) {
-//					continue;
+				if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $item->ID ) == 'on' ) {
+					continue;
 				}
 
 				if ( false != WPSEO_Meta::get_value( 'meta-robots', $item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $item->ID ), 'noindex' ) !== false ) {
