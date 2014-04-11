@@ -83,10 +83,16 @@ class WPSEO_News {
 		$head = new WPSEO_News_Head();
 		add_action( 'wpseo_head', array( $head, 'add_head_tags' ) );
 
+		// Upgrade Manager
 		if( is_admin() ) {
 			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 			$upgrade_manager->check_update();
 		}
+
+		// License Manager
+		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
+		$license_manager->setup_hooks();
+		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form') );
 
 	}
 
@@ -102,7 +108,7 @@ class WPSEO_News {
 		static $this_plugin;
 		if ( empty( $this_plugin ) ) $this_plugin = plugin_basename( __FILE__ );
 		if ( $file == $this_plugin ) {
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo' ) . '</a>';
+			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo-news' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
 		return $links;
@@ -128,8 +134,8 @@ class WPSEO_News {
 
 		$submenu_pages[] = array(
 				'wpseo_dashboard',
-				__( 'Yoast WordPress SEO:', 'wordpress-seo' ) . ' ' . __( 'News SEO', 'wordpress-seo' ),
-				__( 'News SEO', 'wordpress-seo' ),
+				__( 'Yoast WordPress SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
+				__( 'News SEO', 'wordpress-seo-news' ),
 				'manage_options',
 				'wpseo_news',
 				array( $admin_page, 'display' )
