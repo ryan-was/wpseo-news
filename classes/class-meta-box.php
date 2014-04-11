@@ -22,11 +22,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"std"   => "on",
 				"title" => __( "Exclude from News Sitemap" )
 		);
-		$mbs['newssitemap-keywords']      = array(
-				"name"  => "newssitemap-keywords",
-				"type"  => "text",
-				"std"   => "",
-				"title" => __( "Meta News Keywords" ),
+		$mbs['newssitemap-keywords']     = array(
+				"name"        => "newssitemap-keywords",
+				"type"        => "text",
+				"std"         => "",
+				"title"       => __( "Meta News Keywords" ),
 				"description" => __( "Comma separated list of the keywords this article aims at.", "wordpress-seo" ),
 		);
 		$mbs['newssitemap-genre']        = array(
@@ -59,6 +59,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"title"       => __( "Stock Tickers", 'yoast-wpseo' ),
 				"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'yoast-wpseo' ),
 		);
+
 		return $mbs;
 	}
 
@@ -71,6 +72,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	public function save( $meta_boxes ) {
 		$meta_boxes = array_merge( $meta_boxes, $this->get_meta_boxes() );
+
 		return $meta_boxes;
 	}
 
