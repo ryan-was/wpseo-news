@@ -82,17 +82,28 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function header() {
 		global $post;
 
-		if ( isset ( $this->options['newssitemap_posttypes'] ) && $this->options['newssitemap_posttypes'] != '' ) {
-			foreach ( $this->options['newssitemap_posttypes'] as $post_type ) {
-				if ( $post->post_type == $post_type ) {
-					echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo' ) . '</a></li>';
-				}
-			}
-		} else {
-			if ( $post->post_type == 'post' ) {
-				echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo' ) . '</a></li>';
+		// Get supported post types
+		$post_types = array();
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
+			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
+				$post_types[] = $posttype->name;
 			}
 		}
+
+		// Display tab if post type is supported
+		if ( count( $post_types ) > 0 ) {
+			foreach ( $post_types as $post_type ) {
+				if ( $post->post_type == $post_type ) {
+					echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
+				}
+			}
+		}else {
+			// Support post if no post types are supported
+			if ( $post->post_type == 'post' ) {
+				echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
+			}
+		}
+
 	}
 
 	/**
@@ -101,21 +112,32 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function content() {
 		global $post;
 
-		if ( isset( $this->options['newssitemap_posttypes'] ) && $this->options['newssitemap_posttypes'] != '' ) {
-			if ( !in_array( $post->post_type, $this->options['newssitemap_posttypes'] ) ) {
+		// Get supported post types
+		$post_types = array();
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
+			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
+				$post_types[] = $posttype->name;
+			}
+		}
+
+		// Display content if post type is supported
+		if(count($post_types)>0) {
+			if ( ! in_array( $post->post_type, $post_types ) ) {
 				return;
 			}
-		} else {
+		}else {
+			// Support post if no post types are supported
 			if ( $post->post_type != 'post' ) {
 				return;
 			}
 		}
 
+		// Build tab content
 		$content = '';
 		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
-		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo' ), $content );
+		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
 	}
 
 
