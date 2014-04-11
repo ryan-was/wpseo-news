@@ -19,13 +19,13 @@ class WPSEO_News_Admin_Page {
 		$wpseo_admin_pages->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
 		// Introducten
-		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News. If it is, check the box below to enable the XML News Sitemap functionality.', 'wordpress-seo' ) . '</p>';
+		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News. If it is, check the box below to enable the XML News Sitemap functionality.', 'wordpress-seo-news' ) . '</p>';
 
 		// Google News Publication Name
-		echo $wpseo_admin_pages->textinput( 'newssitemapname', __( 'Google News Publication Name', 'wordpress-seo' ) );
+		echo $wpseo_admin_pages->textinput( 'newssitemapname', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre
-		echo $wpseo_admin_pages->select( 'newssitemap_default_genre', __( 'Default Genre', 'wordpress-seo' ),
+		echo $wpseo_admin_pages->select( 'newssitemap_default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
 				array(
 						"none"          => __( "None", 'yoast-wpseo' ),
 						"pressrelease"  => __( "Press Release", 'yoast-wpseo' ),
@@ -37,18 +37,18 @@ class WPSEO_News_Admin_Page {
 				) );
 
 		// Default keywords
-		echo $wpseo_admin_pages->textinput( 'newssitemap_default_keywords', __( 'Default Keywords', 'wordpress-seo' ) );
-		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
+		echo $wpseo_admin_pages->textinput( 'newssitemap_default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
+		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
 
 		// Post Types to include in News Sitemap
-		echo '<h3>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo' ) . '</h3>';
+		echo '<h3>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h3>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo $wpseo_admin_pages->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
 
 		// Post categories to exclude
 		if ( isset( $options['newssitemap_include_post'] ) ) {
-			echo '<h3>' . __( 'Post categories to exclude', 'wordpress-seo' ) . '</h3>';
+			echo '<h3>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h3>';
 			foreach ( get_categories() as $cat ) {
 				echo $wpseo_admin_pages->checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
 			}
