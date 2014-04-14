@@ -20,44 +20,52 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"name"  => "newssitemap-exclude",
 				"type"  => "checkbox",
 				"std"   => "on",
-				"title" => __( "Exclude from News Sitemap" )
+				"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
 		);
 		$mbs['newssitemap-keywords']     = array(
 				"name"        => "newssitemap-keywords",
 				"type"        => "text",
 				"std"         => "",
-				"title"       => __( "Meta News Keywords" ),
-				"description" => __( "Comma separated list of the keywords this article aims at.", "wordpress-seo" ),
+				"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
+				"description" => __( "Comma separated list of the keywords this article aims at.", "wordpress-seo-news" ),
 		);
 		$mbs['newssitemap-genre']        = array(
 				"name"        => "newssitemap-genre",
 				"type"        => "multiselect",
 				"std"         => $stdgenre,
-				"title"       => __( "Google News Genre", 'yoast-wpseo' ),
-				"description" => __( "Genre to show in Google News Sitemap.", 'yoast-wpseo' ),
+				"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
+				"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
 				"options"     => array(
-						"none"          => __( "None", 'yoast-wpseo' ),
-						"pressrelease"  => __( "Press Release", 'yoast-wpseo' ),
-						"satire"        => __( "Satire", 'yoast-wpseo' ),
-						"blog"          => __( "Blog", 'yoast-wpseo' ),
-						"oped"          => __( "Op-Ed", 'yoast-wpseo' ),
-						"opinion"       => __( "Opinion", 'yoast-wpseo' ),
-						"usergenerated" => __( "User Generated", 'yoast-wpseo' ),
+						"none"          => __( "None", 'wordpress-seo-news' ),
+						"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
+						"satire"        => __( "Satire", 'wordpress-seo-news' ),
+						"blog"          => __( "Blog", 'wordpress-seo-news' ),
+						"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
+						"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
+						"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
 				),
 		);
 		$mbs['newssitemap-original']     = array(
 				"name"        => "newssitemap-original",
 				"std"         => "",
 				"type"        => "text",
-				"title"       => __( "Original Source", 'yoast-wpseo' ),
-				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'yoast-wpseo' ),
+				"title"       => __( "Original Source", 'wordpress-seo-news' ),
+				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
 		);
 		$mbs['newssitemap-stocktickers'] = array(
 				"name"        => "newssitemap-stocktickers",
 				"std"         => "",
 				"type"        => "text",
-				"title"       => __( "Stock Tickers", 'yoast-wpseo' ),
-				"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'yoast-wpseo' ),
+				"title"       => __( "Stock Tickers", 'wordpress-seo-news' ),
+				"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
+		);
+
+		$mbs['newssitemap-standout'] = array(
+				"name"        => "newssitemap-standout",
+				"std"         => "",
+				"type"        => "checkbox",
+				"title"       => __( "Standout", 'wordpress-seo-news' ),
+				"description" => __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' ),
 		);
 
 		return $mbs;
