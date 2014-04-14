@@ -16,7 +16,7 @@ class WPSEO_News_Head {
 			}
 
 			$original_source = trim( WPSEO_Meta::get_value( 'newssitemap-original', $post->ID ) );
-			if ( ! empty( $original_source ) ) {
+			if ( empty( $original_source ) ) {
 				echo '<link rel="original-source" href="' . get_permalink( $post->ID ) . '" />' . "\n";
 			} else {
 				$sources = explode( '|', $original_source );
