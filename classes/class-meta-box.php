@@ -60,12 +60,42 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
 		);
 
+		// Default standout description
+		$standout_desc = 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.<br/>';
+
+		$max_standouts = 7;
+
+		// Count standout tags
+		$standout_query = new WP_Query(
+				array(
+						'post_type'   => 'any',
+						'post_status' => 'publish',
+						'meta_query'  => array(
+								array(
+										'name'  => 'newssitemap-standout',
+										'value' => 'on'
+								)
+						)
+				)
+		);
+
+
+		$standout_desc .= '<span style="font-weight:bold;';
+		if ( $standout_query->found_posts > $max_standouts ) {
+			$standout_desc .= 'color:#ff0000';
+		}
+		$standout_desc .= '">';
+
+		$standout_desc .= "You've used {$standout_query->found_posts}/{$max_standouts} standout tags.";
+
+		$standout_desc .= '</span>';
+
 		$mbs['newssitemap-standout'] = array(
 				"name"        => "newssitemap-standout",
 				"std"         => "",
 				"type"        => "checkbox",
 				"title"       => __( "Standout", 'wordpress-seo-news' ),
-				"description" => __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' ),
+				"description" => __( $standout_desc, 'wordpress-seo-news' ),
 		);
 
 		return $mbs;
@@ -105,7 +135,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 					echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 				}
 			}
-		}else {
+		} else {
 			// Support post if no post types are supported
 			if ( $post->post_type == 'post' ) {
 				echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
@@ -129,11 +159,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		// Display content if post type is supported
-		if(count($post_types)>0) {
+		if ( count( $post_types ) > 0 ) {
 			if ( ! in_array( $post->post_type, $post_types ) ) {
 				return;
 			}
-		}else {
+		} else {
 			// Support post if no post types are supported
 			if ( $post->post_type != 'post' ) {
 				return;
