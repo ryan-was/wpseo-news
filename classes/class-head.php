@@ -24,6 +24,12 @@ class WPSEO_News_Head {
 					echo '<link rel="original-source" href="' . $source . '" />' . "\n";
 				}
 			}
+
+			// Standout tag
+			$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $post->ID );
+			if ( 'on' == $meta_standout ) {
+				echo '<meta name="standout" content="' . get_permalink( $post->ID ) . '"/>' . "\n";
+			}
 		}
 
 	}
