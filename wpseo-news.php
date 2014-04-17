@@ -52,7 +52,7 @@ class WPSEO_News {
 	public function __construct() {
 
 		// Setup autoloader
-		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php');
+		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
 		$autoloader = new WPSEO_News_Autoloader();
 		spl_autoload_register( array( $autoloader, 'load' ) );
 
@@ -70,7 +70,7 @@ class WPSEO_News {
 
 		// Meta box
 		$meta_box = new WPSEO_News_Meta_Box();
-		add_filter( 'wpseo_save_metaboxes', array( $meta_box, 'save' ), 10, 1 ); // @todo meta boxes are not saving
+		add_filter( 'wpseo_save_metaboxes', array( $meta_box, 'save' ), 10, 1 );
 		add_action( 'wpseo_tab_header', array( $meta_box, 'header' ) );
 		add_action( 'wpseo_tab_content', array( $meta_box, 'content' ) );
 
@@ -92,7 +92,7 @@ class WPSEO_News {
 		// License Manager
 		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 		$license_manager->setup_hooks();
-		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form') );
+		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
 
 	}
 
@@ -106,11 +106,14 @@ class WPSEO_News {
 	 */
 	public function plugin_links( $links, $file ) {
 		static $this_plugin;
-		if ( empty( $this_plugin ) ) $this_plugin = plugin_basename( __FILE__ );
+		if ( empty( $this_plugin ) ) {
+			$this_plugin = plugin_basename( __FILE__ );
+		}
 		if ( $file == $this_plugin ) {
 			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo-news' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
+
 		return $links;
 	}
 
@@ -138,7 +141,8 @@ class WPSEO_News {
 				__( 'News SEO', 'wordpress-seo-news' ),
 				'manage_options',
 				'wpseo_news',
-				array( $admin_page, 'display' )
+				array( $admin_page, 'display' ),
+				array( array( $this, 'enqueue' ) )
 		);
 
 		return $submenu_pages;
