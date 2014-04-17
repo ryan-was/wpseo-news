@@ -27,13 +27,13 @@ class WPSEO_News_Admin_Page {
 		// Default Genre
 		echo $wpseo_admin_pages->select( 'newssitemap_default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
 				array(
-						"none"          => __( "None", 'yoast-wpseo' ),
-						"pressrelease"  => __( "Press Release", 'yoast-wpseo' ),
-						"satire"        => __( "Satire", 'yoast-wpseo' ),
-						"blog"          => __( "Blog", 'yoast-wpseo' ),
-						"oped"          => __( "Op-Ed", 'yoast-wpseo' ),
-						"opinion"       => __( "Opinion", 'yoast-wpseo' ),
-						"usergenerated" => __( "User Generated", 'yoast-wpseo' ),
+						"none"          => __( "None", 'wordpress-seo-news' ),
+						"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
+						"satire"        => __( "Satire", 'wordpress-seo-news' ),
+						"blog"          => __( "Blog", 'wordpress-seo-news' ),
+						"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
+						"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
+						"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
 				) );
 
 		// Default keywords
