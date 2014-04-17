@@ -91,12 +91,12 @@ class WPSEO_News {
 		if ( is_admin() ) {
 			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 			$upgrade_manager->check_update();
-		}
 
-		// License Manager
-		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		$license_manager->setup_hooks();
-		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+			// License Manager
+			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
+			$license_manager->setup_hooks();
+			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+		}
 
 	}
 
