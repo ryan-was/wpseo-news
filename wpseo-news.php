@@ -79,12 +79,16 @@ class WPSEO_News {
 		add_action( 'init', array( $sitemap, 'init' ), 10 );
 		add_filter( 'wpseo_sitemap_index', array( $sitemap, 'add_to_index' ) );
 
+		// Rewrite Rules
+		$rewrite_rules = new WPSEO_News_Editors_Pick_Request();
+		$rewrite_rules->setup();
+
 		// Head
 		$head = new WPSEO_News_Head();
 		add_action( 'wpseo_head', array( $head, 'add_head_tags' ) );
 
 		// Upgrade Manager
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 			$upgrade_manager->check_update();
 		}
@@ -157,7 +161,17 @@ class WPSEO_News {
 	 */
 	public function add_admin_pages( $admin_pages ) {
 		$admin_pages[] = 'wpseo_news';
+
 		return $admin_pages;
+	}
+
+	/**
+	 * Enqueue meta box script
+	 */
+	public function enqueue() {
+		wp_enqueue_media(); // enqueue files needed for upload functionality
+		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page.js', self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
+		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
 }

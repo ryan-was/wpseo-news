@@ -72,13 +72,12 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 						'post_status' => 'publish',
 						'meta_query'  => array(
 								array(
-										'name'  => 'newssitemap-standout',
+										'key'   => '_yoast_wpseo_newssitemap-standout',
 										'value' => 'on'
 								)
 						)
 				)
 		);
-
 
 		$standout_desc .= '<span style="font-weight:bold;';
 		if ( $standout_query->found_posts > $max_standouts ) {
@@ -96,6 +95,14 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"type"        => "checkbox",
 				"title"       => __( "Standout", 'wordpress-seo-news' ),
 				"description" => __( $standout_desc, 'wordpress-seo-news' ),
+		);
+
+		$mbs['newssitemap-editors-pick'] = array(
+				"name"        => "newssitemap-editors-pick",
+				"std"         => "",
+				"type"        => "checkbox",
+				"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
+				"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 		);
 
 		return $mbs;

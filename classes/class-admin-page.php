@@ -41,18 +41,35 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
 
 		// Post Types to include in News Sitemap
-		echo '<h3>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h3>';
+		echo '<h2>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo $wpseo_admin_pages->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
 
 		// Post categories to exclude
 		if ( isset( $options['newssitemap_include_post'] ) ) {
-			echo '<h3>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h3>';
+			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
 				echo $wpseo_admin_pages->checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
 			}
 		}
+
+		// Post Types to include in News Sitemap
+		echo '<h2>' . __( "Editors' Pick", 'wordpress-seo-news' ) . '</h2>';
+
+		$esc_form_key = 'newssitemap_ep_image';
+		$option       = $wpseo_admin_pages->get_option( 'wpseo_news' );
+		$meta_value   = ( ( isset( $option['newssitemap_ep_image'] ) ) ? $option['newssitemap_ep_image'] : '' );
+
+		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Pick", 'wordpress-seo-news' ) . ':</label>';
+		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $meta_value ) . '" />';
+		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="Upload Image" />';
+		echo '<br class="clear"/>';
+
+		echo $wpseo_admin_pages->textinput( 'newssitemap_ep_image_title', __( 'Image Title', 'wordpress-seo-news' ) );
+
+		echo "<p>" . sprintf( __( "You can find your Editors' Pick RSS feed here: <a target='_blank' class='button-secondary' href='%s'>Editors' Pick RSS Feed</a>", 'wordpress-seo-news' ), site_url( 'editors-pick.rss' ) ) . "</p>";
+		echo "<p>" . sprintf( __( "You can submit your Editors' Pick RSS feed here: <a target='_blank' class='button-secondary' href='%s'>Submit Editors' Pick RSS Feed</a>", 'wordpress-seo-news' ), "https://support.google.com/news/publisher/contact/editors_picks" ) . "</p>";
 
 		// Admin footer
 		$wpseo_admin_pages->admin_footer( true, false );
