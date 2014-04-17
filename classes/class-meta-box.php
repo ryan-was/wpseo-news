@@ -27,7 +27,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"type"        => "text",
 				"std"         => "",
 				"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
-				"description" => __( "Comma separated list of the keywords this article aims at.", "wordpress-seo-news" ),
+				"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
 		);
 		$mbs['newssitemap-genre']        = array(
 				"name"        => "newssitemap-genre",
