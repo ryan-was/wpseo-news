@@ -95,7 +95,6 @@ class WPSEO_News {
 				add_action( 'admin_head', array( $this, 'edit_post_css' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
 			}
-			//
 
 			// Upgrade Manager
 			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
