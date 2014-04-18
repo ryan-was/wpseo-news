@@ -15,7 +15,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	public function get_meta_boxes( $post_type = 'post' ) {
 		$mbs                             = array();
-		$stdgenre                        = ( isset( $this->options['newssitemap_default_genre'] ) ) ? $this->options['newssitemap_default_genre'] : 'blog';
+		$stdgenre                        = ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog';
 		$mbs['newssitemap-exclude']      = array(
 				"name"  => "newssitemap-exclude",
 				"type"  => "checkbox",

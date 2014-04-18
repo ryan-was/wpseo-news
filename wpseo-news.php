@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: WordPress SEO News
-Version: 2.0.0-beta1
+Version: 2.0.0
 Plugin URI: http://yoast.com/wordpress/seo/news/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
 Description: Google News plugin for the WordPress SEO plugin
 Author: Joost de Valk
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class WPSEO_News {
 
-	const VERSION = '2.0.0-beta1';
+	const VERSION = '2.0.0';
 
 	/**
 	 * Get WPSEO News options
@@ -37,7 +37,8 @@ class WPSEO_News {
 	 * @return array
 	 */
 	public static function get_options() {
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'newssitemapname' => '', 'newssitemap_default_genre' => array(), 'newssitemap_default_keywords' => '', 'dbversion' => '0' ) ) );
+//		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'newssitemapname' => '', 'newssitemap_default_genre' => array(), 'newssitemap_default_keywords' => '', 'dbversion' => '0' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'ep_image_title' => '', 'version' => '0' ) ) );
 	}
 
 	/**

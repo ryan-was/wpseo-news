@@ -125,7 +125,7 @@ class WPSEO_News_Sitemap {
 
 				}
 
-				$publication_name = ! empty( $this->options['newssitemapname'] ) ? $this->options['newssitemapname'] : get_bloginfo( 'name' );
+				$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
 				$publication_lang = substr( get_locale(), 0, 2 );
 
 				$keywords = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $item->ID ) ) );
@@ -137,8 +137,8 @@ class WPSEO_News_Sitemap {
 				}
 
 				// TODO: add suggested keywords to each post based on category, next to the entire site
-				if ( isset( $this->options['newssitemap_default_keywords'] ) && $this->options['newssitemap_default_keywords'] != '' ) {
-					$keywords = array_merge( $keywords, explode( ',', $this->options['newssitemap_default_keywords'] ) );
+				if ( isset( $this->options['default_keywords'] ) && $this->options['default_keywords'] != '' ) {
+					$keywords = array_merge( $keywords, explode( ',', $this->options['default_keywords'] ) );
 				}
 				$keywords = strtolower( trim( implode( ', ', $keywords ), ', ' ) );
 
@@ -147,8 +147,8 @@ class WPSEO_News_Sitemap {
 					$genre = implode( ',', $genre );
 				}
 
-				if ( $genre == '' && isset( $this->options['newssitemap_default_genre'] ) && $this->options['newssitemap_default_genre'] != '' ) {
-					$genre = $this->options['newssitemap_default_genre'];
+				if ( $genre == '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
+					$genre = $this->options['default_genre'];
 				}
 				$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
 

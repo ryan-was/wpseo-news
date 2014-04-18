@@ -65,14 +65,15 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<title>' . get_bloginfo( 'name' ) . '</title>' . PHP_EOL;
 
 		// Display the image tag if an image is set
-		if ( isset( $options['newssitemap_ep_image'] ) && $options['newssitemap_ep_image'] != '' ) {
+		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] != '' ) {
 			echo '<image>' . PHP_EOL;
-			echo '<url>' . $options['newssitemap_ep_image'] . '</url>' . PHP_EOL;
+			echo '<url>' . $options['ep_image_src'] . '</url>' . PHP_EOL;
 
 			// Display the image title tag if an image is set
-			if ( isset( $options['newssitemap_ep_image_title'] ) && $options['newssitemap_ep_image_title'] != '' ) {
-				echo '<title>' . $options['newssitemap_ep_image_title'] . '</title>' . PHP_EOL;
+			if ( isset( $options['ep_image_title'] ) && $options['ep_image_title'] != '' ) {
+				echo '<title>' . $options['ep_image_title'] . '</title>' . PHP_EOL;
 			}
+
 			echo '<link>' . get_site_url() . '</link>' . PHP_EOL;
 			echo '</image>' . PHP_EOL;
 		}
