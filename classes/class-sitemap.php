@@ -39,7 +39,9 @@ class WPSEO_News_Sitemap {
 	 * Register the XML News sitemap with the main sitemap class.
 	 */
 	public function init() {
-		$GLOBALS['wpseo_sitemaps']->register_sitemap( 'news', array( $this, 'build' ) );
+		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( 'news', array( $this, 'build' ) );
+		}
 	}
 
 	/**
