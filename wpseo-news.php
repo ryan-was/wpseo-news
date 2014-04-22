@@ -57,6 +57,11 @@ class WPSEO_News {
 
 	public function __construct() {
 
+		// Check if module can work
+		if ( false === $this->check_dependencies() ) {
+			return false;
+		}
+
 		// Setup autoloader
 		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
 		$autoloader = new WPSEO_News_Autoloader();
@@ -112,6 +117,29 @@ class WPSEO_News {
 			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
 		}
 
+	}
+
+	/**
+	 * Check the dependencies
+	 */
+	private function check_dependencies() {
+		global $wp_version;
+
+		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
+			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
+		} else {
+			if ( defined( 'WPSEO_VERSION' ) ) {
+				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
+					return true;
+				} else {
+					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
+				}
+			} else {
+				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -200,6 +228,33 @@ class WPSEO_News {
 	 */
 	public function edit_post_css() {
 		echo "<style type='text/css'>.wpseo-news-input-error{border:1px solid #ff0000 !important;}</style>" . PHP_EOL;
+	}
+
+	/**
+	 * Throw an error if WordPress SEO is not installed.
+	 *
+	 * @since 1.0.1
+	 */
+	public function error_missing_wpseo() {
+		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
+	}
+
+	/**
+	 * Throw an error if WordPress is out of date.
+	 *
+	 * @since 1.0.1
+	 */
+	public function error_upgrade_wp() {
+		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the WordPress SEO News module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
+	}
+
+	/**
+	 * Throw an error if WordPress SEO is out of date.
+	 *
+	 * @since 1.0.1
+	 */
+	public function error_upgrade_wpseo() {
+		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
 }
