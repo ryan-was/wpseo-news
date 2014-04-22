@@ -3,7 +3,7 @@
 /*
 Plugin Name: WordPress SEO News
 Version: 2.0.0
-Plugin URI: http://yoast.com/wordpress/seo/news/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
+Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
 Description: Google News plugin for the WordPress SEO plugin
 Author: Joost de Valk
 Author URI: http://yoast.com/
