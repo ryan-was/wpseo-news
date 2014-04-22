@@ -10,7 +10,7 @@ if( ! class_exists( 'WPSEO_News_Product' ) ) {
 		public function __construct() {
 			parent::__construct(
 					'https://yoast.com',
-					'WordPress SEO News',
+					'News SEO',
 					plugin_basename( WPSEO_News::get_file() ),
 					WPSEO_News::VERSION,
 					'https://yoast.com/wordpress/plugins/wordpress-seo-news/',
