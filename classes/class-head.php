@@ -17,6 +17,12 @@ class WPSEO_News_Head {
 		if ( is_singular() ) {
 			global $post;
 
+			/**
+			 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting news keywords tag
+			 *
+			 * @api string $meta_news_keywords The meta news keywords tag
+			 *
+			 */
 			if ( apply_filters( 'wpseo_news_head_display_keywords', true ) ) {
 				$meta_news_keywords = trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $post->ID ) );
 				if ( ! empty( $meta_news_keywords ) ) {
@@ -24,6 +30,12 @@ class WPSEO_News_Head {
 				}
 			}
 
+			/**
+			 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting news keywords tag
+			 *
+			 * @api string $meta_news_keywords The meta news keywords tag
+			 *
+			 */
 			if ( apply_filters( 'wpseo_news_head_display_original', true ) ) {
 				$original_source = trim( WPSEO_Meta::get_value( 'newssitemap-original', $post->ID ) );
 				if ( empty( $original_source ) ) {
@@ -36,7 +48,12 @@ class WPSEO_News_Head {
 				}
 			}
 
-			// Standout tag
+			/**
+			 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag
+			 *
+			 * @api string $meta_standout The standout tag
+			 *
+			 */
 			if ( apply_filters( 'wpseo_news_head_display_standout', true ) ) {
 				$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $post->ID );
 				if ( 'on' == $meta_standout ) {
