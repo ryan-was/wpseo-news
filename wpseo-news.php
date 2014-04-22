@@ -167,7 +167,19 @@ class WPSEO_News {
 	 * Register the premium settings
 	 */
 	public function register_settings() {
-		register_setting( 'yoast_wpseo_news_options', 'wpseo_news' );
+		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
+	}
+
+	/**
+	 * Sanitize options
+	 *
+	 * @param $options
+	 *
+	 * @return mixed
+	 */
+	public function sanitize_options( $options ) {
+		$options['version'] = self::VERSION;
+		return $options;
 	}
 
 	/**
