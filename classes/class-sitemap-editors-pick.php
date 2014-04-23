@@ -26,7 +26,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 								)
 						),
 						'order'       => 'DESC',
-						'orderby'     => 'modified'
+						'orderby'     => 'date'
 				)
 		);
 
