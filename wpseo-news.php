@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: WordPress SEO News
-Version: 2.0.2
+Version: 2.0.3
 Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
 Description: Google News plugin for the WordPress SEO plugin
 Author: Joost de Valk
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class WPSEO_News {
 
-	const VERSION = '2.0.2';
+	const VERSION = '2.0.3';
 
 	/**
 	 * Get WPSEO News options
@@ -245,7 +245,7 @@ class WPSEO_News {
 	/**
 	 * Throw an error if WordPress SEO is not installed.
 	 *
-	 * @since 1.0.1
+	 * @since 2.0.0
 	 */
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
@@ -254,7 +254,7 @@ class WPSEO_News {
 	/**
 	 * Throw an error if WordPress is out of date.
 	 *
-	 * @since 1.0.1
+	 * @since 2.0.0
 	 */
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the WordPress SEO News module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
@@ -263,7 +263,7 @@ class WPSEO_News {
 	/**
 	 * Throw an error if WordPress SEO is out of date.
 	 *
-	 * @since 1.0.1
+	 * @since 2.0.0
 	 */
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ) . '</p></div>';
