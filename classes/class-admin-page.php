@@ -19,7 +19,7 @@ class WPSEO_News_Admin_Page {
 		$wpseo_admin_pages->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
 		// Introducten
-		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News. If it is, check the box below to enable the XML News Sitemap functionality.', 'wordpress-seo-news' ) . '</p>';
+		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
 
 		// Google News Publication Name
 		echo $wpseo_admin_pages->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
