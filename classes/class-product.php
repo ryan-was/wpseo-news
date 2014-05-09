@@ -13,7 +13,7 @@ if( ! class_exists( 'WPSEO_News_Product' ) ) {
 					'News SEO',
 					plugin_basename( WPSEO_News::get_file() ),
 					WPSEO_News::VERSION,
-					'https://yoast.com/wordpress/plugins/wordpress-seo-news/',
+					'https://yoast.com/wordpress/plugins/news-seo/',
 					'admin.php?page=wpseo_licenses#top#licenses',
 					'wordpress-seo-news',
 					'Yoast'
