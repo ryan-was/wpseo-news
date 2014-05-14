@@ -11,6 +11,6 @@ Changelog
 * Bugfixes
   * Add CDATA tags to RSS feed text output.
 
-= 1.2 = 
+= 2.0 =
 
 Initial release
