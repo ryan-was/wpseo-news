@@ -82,10 +82,10 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		if ( count( $this->items ) > 0 ) {
 			foreach ( $this->items as $item ) {
 				echo '<item>' . PHP_EOL;
-				echo '<title>' . $item['title'] . '</title>' . PHP_EOL;
+				echo '<title><![CDATA[' . $item['title'] . ']]></title>' . PHP_EOL;
 				echo '<link>' . $item['link'] . '</link>' . PHP_EOL;
-				echo '<description>' . $item['description'] . '</description>' . PHP_EOL;
-				echo '<dc:creator>' . $item['creator'] . '</dc:creator>' . PHP_EOL;
+				echo '<description><![CDATA[' . $item['description'] . ']]></description>' . PHP_EOL;
+				echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
 				echo '</item>' . PHP_EOL;
 			}
 		}
