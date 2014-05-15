@@ -15,7 +15,7 @@ class WPSEO_News_Upgrade_Manager {
 		$options = WPSEO_News::get_options();
 
 		// Check if update is required
-		if ( 1 || version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
+		if ( version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
 
 			// Do update
 			$this->do_update( $options['version'] );
