@@ -15,7 +15,7 @@ class WPSEO_News_Upgrade_Manager {
 		$options = WPSEO_News::get_options();
 
 		// Check if update is required
-		if ( version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
+		if ( 1 || version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
 
 			// Do update
 			$this->do_update( $options['version'] );
@@ -34,8 +34,23 @@ class WPSEO_News_Upgrade_Manager {
 	 */
 	private function do_update( $current_version ) {
 
+		// Upgrade to version 2.0.4
+		if ( version_compare( $current_version, '2.0.4', '<' ) ) {
+
+			// Remove unused option
+			$news_options = WPSEO_News::get_options();
+			unset($news_options['ep_image_title']);
+
+			// Update options
+			update_option( 'wpseo_news', $news_options );
+
+			// Reset variable
+			$news_options = null;
+
+		}
+
 		// Update to version 2.0
-		if ( version_compare( '2.0', $current_version, '>' ) ) {
+		if ( version_compare( $current_version, '2.0', '<' ) ) {
 
 			// Get current options
 			$current_options = get_option( 'wpseo_news' );
