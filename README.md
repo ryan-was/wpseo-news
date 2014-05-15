@@ -21,6 +21,7 @@ Changelog
 
 * Bugfixes
   * Add CDATA tags to RSS feed text output.
+  * Now using the same title for the Editors' Pick title as the channel title.
 
 = 2.0.3 =
 ----------
