@@ -43,7 +43,7 @@ class WPSEO_News {
 		 * @api array $wpseo_news_options The WordPress SEO News options
 		 *
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'ep_image_title' => '', 'version' => '0' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'version' => '0' ) ) );
 	}
 
 	/**

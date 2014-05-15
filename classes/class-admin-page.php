@@ -66,8 +66,6 @@ class WPSEO_News_Admin_Page {
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="Upload Image" />';
 		echo '<br class="clear"/>';
 
-		echo $wpseo_admin_pages->textinput( 'ep_image_title', __( 'Image Title', 'wordpress-seo-news' ) );
-
 		echo "<p>" . sprintf( __( "You can find your Editors' Pick RSS feed here: <a target='_blank' class='button-secondary' href='%s'>Editors' Pick RSS Feed</a>", 'wordpress-seo-news' ), site_url( 'editors-pick.rss' ) ) . "</p>";
 		echo "<p>" . sprintf( __( "You can submit your Editors' Pick RSS feed here: <a target='_blank' class='button-secondary' href='%s'>Submit Editors' Pick RSS Feed</a>", 'wordpress-seo-news' ), "https://support.google.com/news/publisher/contact/editors_picks" ) . "</p>";
 
