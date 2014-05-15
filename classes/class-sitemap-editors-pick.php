@@ -16,18 +16,18 @@ class WPSEO_News_Sitemap_Editors_Pick {
 
 		// EP Query
 		$ep_query = new WP_Query(
-				array(
-						'post_type'   => 'any',
-						'post_status' => 'publish',
-						'meta_query'  => array(
-								array(
-										'key'   => '_yoast_wpseo_newssitemap-editors-pick',
-										'value' => 'on'
-								)
-						),
-						'order'       => 'DESC',
-						'orderby'     => 'date'
-				)
+			array(
+				'post_type'   => 'any',
+				'post_status' => 'publish',
+				'meta_query'  => array(
+					array(
+						'key'   => '_yoast_wpseo_newssitemap-editors-pick',
+						'value' => 'on'
+					)
+				),
+				'order'       => 'DESC',
+				'orderby'     => 'date'
+			)
 		);
 
 		// The Loop
@@ -35,10 +35,10 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			while ( $ep_query->have_posts() ) {
 				$ep_query->the_post();
 				$this->items[] = array(
-						'title'       => get_the_title(),
-						'link'        => get_permalink(),
-						'description' => get_the_excerpt(),
-						'creator'     => get_the_author_meta( 'display_name' )
+					'title'       => get_the_title(),
+					'link'        => get_permalink(),
+					'description' => get_the_excerpt(),
+					'creator'     => get_the_author_meta( 'display_name' )
 				);
 			}
 		}
