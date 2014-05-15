@@ -17,30 +17,25 @@ Installation
 Changelog
 =========
 
-= Trunk =
-
+### 2.0.4: May 15th, 2014
 * Bugfixes
   * Add CDATA tags to RSS feed text output.
   * Now using the same title for the Editors' Pick title as the channel title.
 
-= 2.0.3 =
-----------
+### 2.0.3: April 23rd, 2014
 * Enhancement
   * Sitemaps now use creation dates instead of modified dates.
 
-= 2.0.2 =
-----------
+### 2.0.2: April 22nd, 2014
 * Bugfixes
   * Fixed a bug with version_compare.
 
 * Enhancement
   * Adds sanitize callback to register_settings.
 
-= 2.0.1 =
-----------
+### 2.0.1: April 22nd, 2014
 * Bugfix
   * Changed EDD product name to 'News SEO'.
 
-= 2.0 =
--------
-Initial release
+### 2.0: April 22nd, 2014
+* Initial release
