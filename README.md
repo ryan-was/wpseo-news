@@ -17,6 +17,9 @@ Installation
 Changelog
 =========
 
+### 2.0.5: June 5th, 2014
+* Fixed a publication_date timezone bug.
+
 ### 2.0.4: May 15th, 2014
 * Bugfixes
   * Add CDATA tags to RSS feed text output.
