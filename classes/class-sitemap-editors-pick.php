@@ -82,6 +82,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			foreach ( $this->items as $item ) {
 				echo '<item>' . PHP_EOL;
 				echo '<title><![CDATA[' . $item['title'] . ']]></title>' . PHP_EOL;
+				echo '<guid isPermaLink="true">' . $item['link'] . '</guid>' . PHP_EOL;
 				echo '<link>' . $item['link'] . '</link>' . PHP_EOL;
 				echo '<description><![CDATA[' . $item['description'] . ']]></description>' . PHP_EOL;
 				echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
