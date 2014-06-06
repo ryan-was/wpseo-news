@@ -60,8 +60,11 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		$options = WPSEO_News::get_options();
 
 		echo '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
-		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">' . PHP_EOL;
+		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		echo '<channel>' . PHP_EOL;
+
+		// Atom channel elements
+		echo '<atom:link href="' . get_site_url() . '/editors-pick.rss" rel="self" type="application/rss+xml" />' . PHP_EOL;
 
 		// Display the main channel tags
 		echo '<link>' . get_site_url() . '</link>' . PHP_EOL;
