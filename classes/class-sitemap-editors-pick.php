@@ -16,6 +16,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 
 		// Remove the wptexturize filter
 		remove_filter( 'the_title', 'wptexturize' );
+		remove_filter( 'the_content', 'wptexturize' );
 
 		// EP Query
 		$ep_query = new WP_Query(
