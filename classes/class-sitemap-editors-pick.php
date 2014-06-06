@@ -14,6 +14,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	private function prepare_items() {
 		$this->items = array();
 
+		// Remove the wptexturize filter
+		remove_filter( 'the_title', 'wptexturize' );
+
 		// EP Query
 		$ep_query = new WP_Query(
 			array(
