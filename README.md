@@ -17,6 +17,11 @@ Installation
 Changelog
 =========
 
+### TRUNK
+* Removed the wptexturize filter from the_title and the_content in the Editors' Pick feed because corrupts our output.
+* Added guid elements to item elements in the Editors' Pick feed.
+* Added an atom:link element as recommended by the RSS Advisory Board to identifying a feed's URL within the feed.
+
 ### 2.0.5: June 5th, 2014
 * Fixed a publication_date timezone bug.
 
