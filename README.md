@@ -17,10 +17,11 @@ Installation
 Changelog
 =========
 
-### TRUNK
+### 2.0.6: June 10th, 2014
 * Removed the wptexturize filter from the_title and the_content in the Editors' Pick feed because corrupts our output.
 * Added guid elements to item elements in the Editors' Pick feed.
 * Added an atom:link element as recommended by the RSS Advisory Board to identifying a feed's URL within the feed.
+* Added the WPSEO News fields to the WPSEO meta fields class to fix a bug where the post meta genre field isn't saved.
 
 ### 2.0.5: June 5th, 2014
 * Fixed a publication_date timezone bug.
