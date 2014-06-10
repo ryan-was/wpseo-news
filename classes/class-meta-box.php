@@ -13,7 +13,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 *
 	 * @return array $mbs
 	 */
-	public function get_meta_boxes( $post_type = 'post' ) {
+	public function get_meta_boxes() {
 		$mbs                             = array();
 		$stdgenre                        = ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog';
 		$mbs['newssitemap-exclude']      = array(
@@ -44,6 +44,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 						"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
 						"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
 				),
+				'serialized'    => true,
 		);
 		$mbs['newssitemap-original']     = array(
 				"name"        => "newssitemap-original",
@@ -119,6 +120,21 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$meta_boxes = array_merge( $meta_boxes, $this->get_meta_boxes() );
 
 		return $meta_boxes;
+	}
+
+
+	/**
+	 * Add WordPress SEO meta fields to WPSEO meta class
+	 *
+	 * @param $meta_fields
+	 *
+	 * @return mixed
+	 */
+	public function add_meta_fields_to_wpseo_meta( $meta_fields ) {
+
+		$meta_fields['news'] = $this->get_meta_boxes();
+
+		return $meta_fields;
 	}
 
 	/**
