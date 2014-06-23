@@ -169,7 +169,14 @@ class WPSEO_News_Sitemap {
 				}
 
 				$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-				$publication_lang = substr( get_locale(), 0, 2 );
+				$locale = apply_filters( 'wpseo_locale', get_locale() );
+
+				// fallback to 'en', if the length of the locale is less than 2 characters
+				if ( strlen( $locale ) < 2 ) {
+					$locale = 'en';
+				}
+
+				$publication_lang = substr( $locale, 0, 2 );
 
 				$keywords = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $item->ID ) ) );
 				$tags     = get_the_terms( $item->ID, 'post_tag' );
