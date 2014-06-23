@@ -17,6 +17,9 @@ Installation
 Changelog
 =========
 
+### TRUNK ###
+* Added filter (wpseo_locale) for locale/language of news sitemap.
+
 ### 2.0.6: June 10th, 2014
 * Removed the wptexturize filter from the_title and the_content in the Editors' Pick feed because corrupts our output.
 * Added guid elements to item elements in the Editors' Pick feed.
