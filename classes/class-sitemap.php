@@ -73,12 +73,14 @@ class WPSEO_News_Sitemap {
 	private function wp_get_timezone_string() {
 
 		// if site timezone string exists, return it
-		if ( $timezone = get_option( 'timezone_string' ) )
+		if ( $timezone = get_option( 'timezone_string' ) ) {
 			return $timezone;
+		}
 
 		// get UTC offset, if it isn't set then return UTC
-		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) )
+		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
 			return 'UTC';
+		}
 
 		// adjust UTC offset from hours to seconds
 		$utc_offset *= 3600;
@@ -139,6 +141,10 @@ class WPSEO_News_Sitemap {
 //		echo '<!--' . print_r( $items, 1 ) . '-->';
 
 
+		// Get the timezone string
+		$timezone_string = $this->wp_get_timezone_string();
+
+		// Loop through items
 		if ( ! empty( $items ) ) {
 			foreach ( $items as $item ) {
 				$item->post_status = 'publish';
@@ -220,7 +226,7 @@ class WPSEO_News_Sitemap {
 				}
 
 				// Create a DateTime object date in the correct timezone
-				$datetime = new DateTime( $item->post_date_gmt, new DateTimeZone( $this->wp_get_timezone_string() ) );
+				$datetime = new DateTime( $item->post_date_gmt, new DateTimeZone( $timezone_string ) );
 
 				$output .= "\t\t<news:publication_date>" . $datetime->format( 'c' ) . '</news:publication_date>' . "\n";
 				$output .= "\t\t<news:title>" . htmlspecialchars( $item->post_title ) . '</news:title>' . "\n";
