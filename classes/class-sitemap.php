@@ -52,12 +52,12 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	function add_to_index( $str ) {
-		$result = strtotime( get_lastpostdate( 'gmt' ) );
-		$date   = date( 'c', $result );
+
+		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( $this->wp_get_timezone_string() ) );
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . home_url( 'news-sitemap.xml' ) . '</loc>' . "\n";
-		$str .= '<lastmod>' . $date . '</lastmod>' . "\n";
+		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
 
 		return $str;
