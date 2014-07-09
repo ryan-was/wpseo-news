@@ -2,15 +2,15 @@
 
 /*
 Plugin Name: WordPress SEO News
-Version: 2.0.6
+Version: 2.1
 Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
 Description: Google News plugin for the WordPress SEO plugin
-Author: Joost de Valk
+Author: Team Yoast
 Author URI: http://yoast.com/
 License: GPL v3
 
 WordPress SEO Plugin
-Copyright (C) 2008-2014, Joost de Valk - joost@yoast.com
+Copyright (C) 2008-2014, Team Yoast
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class WPSEO_News {
 
-	const VERSION = '2.0.6';
+	const VERSION = '2.1';
 
 	/**
 	 * Get WPSEO News options

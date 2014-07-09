@@ -17,7 +17,7 @@ Installation
 Changelog
 =========
 
-### TRUNK ###
+### 2.1: July 9th, 2014
 * Several performance optimizations for sitemap generation.
 * Added button that links to news sitemap on admin page.
 * Added an option to include only the featured image in the XML News sitemap.
