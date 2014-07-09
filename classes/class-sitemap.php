@@ -55,8 +55,15 @@ class WPSEO_News_Sitemap {
 
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( $this->wp_get_timezone_string() ) );
 
+		/**
+		 * Filter: 'wpseo_news_sitemap_url' - Allow filtering the news sitemap XML URL
+		 *
+		 * @api string $news_sitemap_xml The news sitemap XML URL
+		 */
+		$news_sitemap_xml = apply_filters( 'wpseo_news_sitemap_url', home_url( 'news-sitemap.xml' ) );
+
 		$str .= '<sitemap>' . "\n";
-		$str .= '<loc>' . home_url( 'news-sitemap.xml' ) . '</loc>' . "\n";
+		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
 		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
 
