@@ -236,7 +236,7 @@ class WPSEO_News_Sitemap {
 				$output .= "\t</news:news>\n";
 
 				$images = array();
-				if ( preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
+				if ( ( !isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
 					foreach ( $matches[0] as $img ) {
 						if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
 							$src = $match[2];

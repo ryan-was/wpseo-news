@@ -40,6 +40,10 @@ class WPSEO_News_Admin_Page {
 		echo $wpseo_admin_pages->textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
 		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
 
+		echo $wpseo_admin_pages->checkbox( 'restrict_sitemap_featured_img', __( 'Only use featured image for XML News sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
+
+		echo '<br><br>';
+
 		// Post Types to include in News Sitemap
 		echo '<h2>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
