@@ -18,7 +18,11 @@ Changelog
 =========
 
 ### TRUNK ###
-* Added filter (wpseo_locale) for locale/language of news sitemap.
+* Several performance optimizations for sitemap generation.
+* Added button that links to news sitemap on admin page.
+* Added an option to include only the featured image in the XML News sitemap.
+* Introduced filter `wpseo_locale` for locale/language of the XML News sitemap.
+* Introduced filter `wpseo_news_sitemap_url` to allow changing the XML News sitemap URL.
 
 ### 2.0.6: June 10th, 2014
 * Removed the wptexturize filter from the_title and the_content in the Editors' Pick feed because corrupts our output.
