@@ -20,6 +20,7 @@ class WPSEO_News_Admin_Page {
 
 		// Introducten
 		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
+		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . site_url( 'news-sitemap.xml' ) . "'>", '</a>' ) . '</p>';
 
 		// Google News Publication Name
 		echo $wpseo_admin_pages->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
