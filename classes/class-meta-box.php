@@ -11,7 +11,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The metaboxes to display and save for the tab
 	 *
-	 * @param string $post_type 
+	 * @param string $post_type
 	 *
 	 * @return array $mbs
 	 */
