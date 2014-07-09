@@ -111,6 +111,8 @@ class WPSEO_News_Sitemap {
 	public function build() {
 		global $wpdb;
 
+		$home_url = home_url();
+
 		// Get supported post types
 		$post_types = array();
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
@@ -134,18 +136,23 @@ class WPSEO_News_Sitemap {
 									ORDER BY post_date_gmt DESC
 									LIMIT 0, 1000" );
 
-		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-		xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-		xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
-
-//		echo '<!--' . print_r( $items, 1 ) . '-->';
-
+		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
 		// Get the timezone string
 		$timezone_string = $this->wp_get_timezone_string();
 
 		// Loop through items
 		if ( ! empty( $items ) ) {
+
+			$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
+			$locale = apply_filters( 'wpseo_locale', get_locale() );
+
+			// fallback to 'en', if the length of the locale is less than 2 characters
+			if ( strlen( $locale ) < 2 ) {
+				$locale = 'en';
+			}
+
+			$publication_lang = substr( $locale, 0, 2 );
 			foreach ( $items as $item ) {
 				$item->post_status = 'publish';
 
@@ -173,16 +180,6 @@ class WPSEO_News_Sitemap {
 					}
 
 				}
-
-				$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-				$locale = apply_filters( 'wpseo_locale', get_locale() );
-
-				// fallback to 'en', if the length of the locale is less than 2 characters
-				if ( strlen( $locale ) < 2 ) {
-					$locale = 'en';
-				}
-
-				$publication_lang = substr( $locale, 0, 2 );
 
 				$keywords = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $item->ID ) ) );
 				$tags     = get_the_terms( $item->ID, 'post_tag' );
@@ -249,7 +246,7 @@ class WPSEO_News_Sitemap {
 									continue;
 								}
 
-								$src = get_bloginfo( 'url' ) . $src;
+								$src = $home_url . $src;
 							}
 
 							if ( $src != esc_url( $src ) ) {
@@ -331,8 +328,8 @@ class WPSEO_News_Sitemap {
 		}
 
 		$output .= '</urlset>';
+		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
 		$GLOBALS['wpseo_sitemaps']->set_sitemap( $output );
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . plugin_dir_url( WPSEO_News::get_file() ) . 'assets/xml-news-sitemap.xsl"?>' );
 	}
 
 }
