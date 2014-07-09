@@ -11,9 +11,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The metaboxes to display and save for the tab
 	 *
+	 * @param string $post_type 
+	 *
 	 * @return array $mbs
 	 */
-	public function get_meta_boxes() {
+	public function get_meta_boxes( $post_type = 'post' ) {
 		$mbs                             = array();
 		$stdgenre                        = ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog';
 		$mbs['newssitemap-exclude']      = array(
