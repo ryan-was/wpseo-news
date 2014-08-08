@@ -17,6 +17,10 @@ Installation
 Changelog
 =========
 
+### trunk
+* Bugfixes
+  * Fixed a bug where button to Editors' Pick RSS didn't work.
+
 ### 2.1: July 9th, 2014
 * Several performance optimizations for sitemap generation.
 * Added button that links to news sitemap on admin page.
