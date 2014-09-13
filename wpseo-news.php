@@ -7,6 +7,7 @@ Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm
 Description: Google News plugin for the WordPress SEO plugin
 Author: Team Yoast
 Author URI: http://yoast.com/
+Text Domain: wpseo_news
 License: GPL v3
 
 WordPress SEO Plugin
@@ -144,6 +145,20 @@ class WPSEO_News {
 	}
 
 	/**
+	 * Check whether we can include the minified version or not
+	 *
+	 * @param string $ext
+	 *
+	 * @return string
+	 */
+	private function file_ext( $ext ) {
+		if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
+			$ext = '.min' . $ext;
+		}
+		return $ext;
+	}
+
+	/**
 	 * Add plugin links
 	 *
 	 * @param $links
@@ -225,7 +240,7 @@ class WPSEO_News {
 	 */
 	public function enqueue_admin_page() {
 		wp_enqueue_media(); // enqueue files needed for upload functionality
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page.js', self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
@@ -233,7 +248,7 @@ class WPSEO_News {
 	 * Enqueue edit post JS
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit.js', self::get_file() ), array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ), self::VERSION, true );
 	}
 
 	/**
