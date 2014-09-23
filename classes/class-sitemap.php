@@ -297,7 +297,11 @@ class WPSEO_News_Sitemap {
 							$image['alt'] = $attachment['alt'];
 						}
 
-						$images[$attachment['src']] = $image;
+						if ( '' != $attachment['href'] ) {
+							$images[$attachment['href']] = $image;
+						} else {
+							$images[$attachment['src']] = $image;
+						}
 
 					}
 
