@@ -26,12 +26,12 @@ class WPSEO_News_Sitemap {
 
 		// Return props
 		return array(
-				'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-				'caption'     => $attachment->post_excerpt,
-				'description' => $attachment->post_content,
-				'href'        => get_permalink( $attachment->ID ),
-				'src'         => $attachment->guid,
-				'title'       => $attachment->post_title
+			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+			'caption'     => $attachment->post_excerpt,
+			'description' => $attachment->post_content,
+			'href'        => get_permalink( $attachment->ID ),
+			'src'         => $attachment->guid,
+			'title'       => $attachment->post_title
 		);
 	}
 
@@ -102,8 +102,9 @@ class WPSEO_News_Sitemap {
 
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {
-					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset )
+					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
 						return $city['timezone_id'];
+					}
 				}
 			}
 		}
@@ -152,7 +153,7 @@ class WPSEO_News_Sitemap {
 		if ( ! empty( $items ) ) {
 
 			$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-			$locale = apply_filters( 'wpseo_locale', get_locale() );
+			$locale           = apply_filters( 'wpseo_locale', get_locale() );
 
 			// fallback to 'en', if the length of the locale is less than 2 characters
 			if ( strlen( $locale ) < 2 ) {
@@ -243,7 +244,7 @@ class WPSEO_News_Sitemap {
 				$output .= "\t</news:news>\n";
 
 				$images = array();
-				if ( ( !isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
+				if ( ( ! isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
 					foreach ( $matches[0] as $img ) {
 						if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
 							$src = $match[2];
@@ -297,7 +298,11 @@ class WPSEO_News_Sitemap {
 							$image['alt'] = $attachment['alt'];
 						}
 
-						$images[$attachment['src']] = $image;
+						if ( '' != $attachment['href'] ) {
+							$images[$attachment['href']] = $image;
+						} else {
+							$images[$attachment['src']] = $image;
+						}
 
 					}
 
