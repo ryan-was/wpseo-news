@@ -39,10 +39,11 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			while ( $ep_query->have_posts() ) {
 				$ep_query->the_post();
 				$this->items[] = array(
-					'title'       => get_the_title(),
-					'link'        => get_permalink(),
-					'description' => get_the_excerpt(),
-					'creator'     => get_the_author_meta( 'display_name' )
+					'title'        => get_the_title(),
+					'link'         => get_permalink(),
+					'description'  => get_the_excerpt(),
+					'creator'      => get_the_author_meta( 'display_name' ),
+					'published_on' => get_the_date(),
 				);
 			}
 		}
@@ -89,6 +90,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 				echo '<link>' . $item['link'] . '</link>' . PHP_EOL;
 				echo '<description><![CDATA[' . $item['description'] . ']]></description>' . PHP_EOL;
 				echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
+				echo '<pubDate>' . $item['published_on'] . '</pubDate>' . PHP_EOL;
 				echo '</item>' . PHP_EOL;
 			}
 		}
