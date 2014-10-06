@@ -295,4 +295,4 @@ function __wpseo_news_main() {
 }
 
 // Load WPSEO News
-add_action( 'init', '__wpseo_news_main' );
+add_action( 'after_setup_theme', '__wpseo_news_main' );
