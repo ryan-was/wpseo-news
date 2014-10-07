@@ -1,5 +1,10 @@
 News SEO for WordPress SEO
 ==========================
+Requires at least: 3.8<br/>
+Tested up to: 4.0<br/>
+Stable tag: 2.2
+Depends: wordpress-seo
+
 
 News SEO module for the WordPress SEO plugin.
 
@@ -17,9 +22,14 @@ Installation
 Changelog
 =========
 
-### trunk
+### 2.2: October 7th, 2014
 * Bugfixes
   * Fixed a bug where button to Editors' Pick RSS didn't work.
+	* Fixed bug where plugin would give a white screen of death in certain installations.
+	* Improve using the right image for the news sitemap.
+
+* Enhancements
+	* Added `pubDate` to editors pick RSS feed.
 
 ### 2.1: July 9th, 2014
 * Several performance optimizations for sitemap generation.
