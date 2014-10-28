@@ -287,6 +287,12 @@ class WPSEO_News {
 
 }
 
+// Load text domain
+add_action( 'init', 'wpseo_news_load_textdomain' );
+function wpseo_news_load_textdomain() {
+	load_plugin_textdomain( 'wordpress-seo-news', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+
 /**
  * WPSEO News __main method
  */
