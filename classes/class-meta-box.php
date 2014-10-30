@@ -19,48 +19,48 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$mbs                             = array();
 		$stdgenre                        = ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog';
 		$mbs['newssitemap-exclude']      = array(
-				"name"  => "newssitemap-exclude",
-				"type"  => "checkbox",
-				"std"   => "on",
-				"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
+			"name"  => "newssitemap-exclude",
+			"type"  => "checkbox",
+			"std"   => "on",
+			"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
 		);
 		$mbs['newssitemap-keywords']     = array(
-				"name"        => "newssitemap-keywords",
-				"type"        => "text",
-				"std"         => "",
-				"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
-				"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
+			"name"        => "newssitemap-keywords",
+			"type"        => "text",
+			"std"         => "",
+			"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
+			"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
 		);
 		$mbs['newssitemap-genre']        = array(
-				"name"        => "newssitemap-genre",
-				"type"        => "multiselect",
-				"std"         => $stdgenre,
-				"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
-				"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
-				"options"     => array(
-						"none"          => __( "None", 'wordpress-seo-news' ),
-						"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
-						"satire"        => __( "Satire", 'wordpress-seo-news' ),
-						"blog"          => __( "Blog", 'wordpress-seo-news' ),
-						"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
-						"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
-						"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
-				),
-				'serialized'    => true,
+			"name"        => "newssitemap-genre",
+			"type"        => "multiselect",
+			"std"         => $stdgenre,
+			"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
+			"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
+			"options"     => array(
+				"none"          => __( "None", 'wordpress-seo-news' ),
+				"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
+				"satire"        => __( "Satire", 'wordpress-seo-news' ),
+				"blog"          => __( "Blog", 'wordpress-seo-news' ),
+				"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
+				"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
+				"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
+			),
+			'serialized'  => true,
 		);
 		$mbs['newssitemap-original']     = array(
-				"name"        => "newssitemap-original",
-				"std"         => "",
-				"type"        => "text",
-				"title"       => __( "Original Source", 'wordpress-seo-news' ),
-				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+			"name"        => "newssitemap-original",
+			"std"         => "",
+			"type"        => "text",
+			"title"       => __( "Original Source", 'wordpress-seo-news' ),
+			"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
 		);
 		$mbs['newssitemap-stocktickers'] = array(
-				"name"        => "newssitemap-stocktickers",
-				"std"         => "",
-				"type"        => "text",
-				"title"       => __( "Stock Tickers", 'wordpress-seo-news' ),
-				"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
+			"name"        => "newssitemap-stocktickers",
+			"std"         => "",
+			"type"        => "text",
+			"title"       => __( "Stock Tickers", 'wordpress-seo-news' ),
+			"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
 		);
 
 		// Default standout description
@@ -70,16 +70,16 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		// Count standout tags
 		$standout_query = new WP_Query(
-				array(
-						'post_type'   => 'any',
-						'post_status' => 'publish',
-						'meta_query'  => array(
-								array(
-										'key'   => '_yoast_wpseo_newssitemap-standout',
-										'value' => 'on'
-								)
-						)
+			array(
+				'post_type'   => 'any',
+				'post_status' => 'publish',
+				'meta_query'  => array(
+					array(
+						'key'   => '_yoast_wpseo_newssitemap-standout',
+						'value' => 'on'
+					)
 				)
+			)
 		);
 
 		$standout_desc .= '<span style="font-weight:bold;';
@@ -88,24 +88,24 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 		$standout_desc .= '">';
 
-		$standout_desc .= "You've used {$standout_query->found_posts}/{$max_standouts} standout tags.";
+		$standout_desc .= sprintf( __( "You've used %s/%s standout tags.", 'wordpress-seo-news' ), $standout_query->found_posts, $max_standouts );
 
 		$standout_desc .= '</span>';
 
 		$mbs['newssitemap-standout'] = array(
-				"name"        => "newssitemap-standout",
-				"std"         => "",
-				"type"        => "checkbox",
-				"title"       => __( "Standout", 'wordpress-seo-news' ),
-				"description" => __( $standout_desc, 'wordpress-seo-news' ),
+			"name"        => "newssitemap-standout",
+			"std"         => "",
+			"type"        => "checkbox",
+			"title"       => __( "Standout", 'wordpress-seo-news' ),
+			"description" => $standout_desc,
 		);
 
 		$mbs['newssitemap-editors-pick'] = array(
-				"name"        => "newssitemap-editors-pick",
-				"std"         => "",
-				"type"        => "checkbox",
-				"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
-				"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
+			"name"        => "newssitemap-editors-pick",
+			"std"         => "",
+			"type"        => "checkbox",
+			"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
+			"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 		);
 
 		return $mbs;
