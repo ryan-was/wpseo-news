@@ -108,7 +108,7 @@ class WPSEO_News_Sitemap {
 					$output .= "\t\t<news:genres>" . htmlspecialchars( $genre ) . '</news:genres>' . "\n";
 				}
 
-				$output .= "\t\t<news:publication_date>" . $this->publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
+				$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
 				$output .= "\t\t<news:title>" . htmlspecialchars( $item->post_title ) . '</news:title>' . "\n";
 
 				if ( ! empty( $keywords ) ) {
@@ -200,7 +200,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @return string
 	 */
-	private function publication_date( $item_date ) {
+	private function get_publication_date( $item_date ) {
 
 		static $timezone_string;
 
