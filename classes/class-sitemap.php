@@ -54,21 +54,12 @@ class WPSEO_News_Sitemap {
 
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
-		// Get the timezone string
-		$timezone_string = $this->wp_get_timezone_string();
-
 		// Loop through items
 		if ( ! empty( $items ) ) {
 
 			$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-			$locale           = apply_filters( 'wpseo_locale', get_locale() );
+			$publication_lang = $this->get_publication_lang();
 
-			// fallback to 'en', if the length of the locale is less than 2 characters
-			if ( strlen( $locale ) < 2 ) {
-				$locale = 'en';
-			}
-
-			$publication_lang = substr( $locale, 0, 2 );
 			foreach ( $items as $item ) {
 				$item->post_status = 'publish';
 
@@ -117,10 +108,7 @@ class WPSEO_News_Sitemap {
 					$output .= "\t\t<news:genres>" . htmlspecialchars( $genre ) . '</news:genres>' . "\n";
 				}
 
-				// Create a DateTime object date in the correct timezone
-				$datetime = new DateTime( $item->post_date_gmt, new DateTimeZone( $timezone_string ) );
-
-				$output .= "\t\t<news:publication_date>" . $datetime->format( 'c' ) . '</news:publication_date>' . "\n";
+				$output .= "\t\t<news:publication_date>" . $this->publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
 				$output .= "\t\t<news:title>" . htmlspecialchars( $item->post_title ) . '</news:title>' . "\n";
 
 				if ( ! empty( $keywords ) ) {
@@ -185,6 +173,46 @@ class WPSEO_News_Sitemap {
 
 		// fallback to UTC
 		return 'UTC';
+	}
+
+	/**
+	 * Getting the publication language
+	 *
+	 * @return string
+	 */
+	private function get_publication_lang() {
+		$locale           = apply_filters( 'wpseo_locale', get_locale() );
+
+		// fallback to 'en', if the length of the locale is less than 2 characters
+		if ( strlen( $locale ) < 2 ) {
+			$locale = 'en';
+		}
+
+		$publication_lang = substr( $locale, 0, 2 );
+
+		return $publication_lang;
+	}
+
+	/**
+	 * Parses the inputted date into xml format
+	 *
+	 * @param string $item_date
+	 *
+	 * @return string
+	 */
+	private function publication_date( $item_date ) {
+
+		static $timezone_string;
+
+		if ( $timezone_string == null ) {
+			// Get the timezone string
+			$timezone_string = $this->wp_get_timezone_string();
+		}
+
+		// Create a DateTime object date in the correct timezone
+		$datetime = new DateTime( $item_date , new DateTimeZone( $timezone_string ) );
+
+		return $datetime->format( 'c' );
 	}
 
 	/**
