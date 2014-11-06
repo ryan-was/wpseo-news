@@ -337,48 +337,62 @@ class WPSEO_News_Sitemap {
 	 */
 	private function get_item_images( $item ) {
 
-		static $home_url;
-
-		if ( $home_url == null ) {
-			$home_url = home_url();
-		}
-
 		$images = array();
 
 		if ( ( ! isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
 			foreach ( $matches[0] as $img ) {
 				if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
-					$src = $match[2];
-					if ( strpos( $src, 'http' ) !== 0 ) {
-
-						if ( $src[0] != '/' ) {
-							continue;
-						}
-
-						$src = $home_url . $src;
-					}
-
-					if ( $src != esc_url( $src ) ) {
+					if ( $src = $this->parse_image_source( $match[2] ) ) {
+						$images[$src] = $this->parse_image( $img );
+					} else {
 						continue;
 					}
-
-					if ( isset( $url['images'][$src] ) ) {
-						continue;
-					}
-
-					$images[$src] = $this->parse_image(  $img );
 				}
 			}
 		}
 
 		// Also check if the featured image value is set.
 		$post_thumbnail_id = get_post_thumbnail_id( $item->ID );
-
 		if ( '' != $post_thumbnail_id ) {
 			$images = $this->get_item_featured_image( $post_thumbnail_id, $images );
 		}
 
 		return $images;
+	}
+
+	/**
+	 * Parsing the image source
+	 *
+	 * @param string $src
+	 *
+	 * @return string|void
+	 */
+	private function parse_image_source( $src ) {
+
+		static $home_url;
+
+		if ( $home_url == null ) {
+			$home_url = home_url();
+		}
+
+		if ( strpos( $src, 'http' ) !== 0 ) {
+
+			if ( $src[0] != '/' ) {
+				return;
+			}
+
+			$src = $home_url . $src;
+		}
+
+		if ( $src != esc_url( $src ) ) {
+			return;
+		}
+
+		if ( isset( $url['images'][$src] ) ) {
+			return;
+		}
+
+		return $src;
 	}
 
 	/**
