@@ -366,16 +366,7 @@ class WPSEO_News_Sitemap {
 						continue;
 					}
 
-					$image = array();
-					if ( preg_match( '/title=("|\')([^"\']+)("|\')/', $img, $match ) ) {
-						$image['title'] = str_replace( array( '-', '_' ), ' ', $match[2] );
-					}
-
-					if ( preg_match( '/alt=("|\')([^"\']+)("|\')/', $img, $match ) ) {
-						$image['alt'] = str_replace( array( '-', '_' ), ' ', $match[2] );
-					}
-
-					$images[$src] = $image;
+					$images[$src] = $this->parse_image(  $img );
 				}
 			}
 		}
@@ -384,27 +375,59 @@ class WPSEO_News_Sitemap {
 		$post_thumbnail_id = get_post_thumbnail_id( $item->ID );
 
 		if ( '' != $post_thumbnail_id ) {
+			$images = $this->get_item_featured_image( $post_thumbnail_id, $images );
+		}
 
-			$attachment = $this->get_attachment( $post_thumbnail_id );
+		return $images;
+	}
 
-			if ( count( $attachment ) > 0 ) {
+	/**
+	 * Setting title and alt for image and returns them in an array
+	 *
+	 * @param string $img
+	 *
+	 * @return array
+	 */
+	private function parse_image( $img ) {
+		$image = array();
+		if ( preg_match( '/title=("|\')([^"\']+)("|\')/', $img, $match ) ) {
+			$image['title'] = str_replace( array( '-', '_' ), ' ', $match[2] );
+		}
 
-				$image = array();
+		if ( preg_match( '/alt=("|\')([^"\']+)("|\')/', $img, $match ) ) {
+			$image['alt'] = str_replace( array( '-', '_' ), ' ', $match[2] );
+		}
 
-				if ( '' != $attachment['title'] ) {
-					$image['title'] = $attachment['title'];
-				}
+		return $image;
+	}
 
-				if ( '' != $attachment['alt'] ) {
-					$image['alt'] = $attachment['alt'];
-				}
+	/**
+	 * Getting the featured image
+	 *
+	 * @param integer $post_thumbnail_id
+	 * @param array   $images
+	 *
+	 * @return array
+	 */
+	private function get_item_featured_image( $post_thumbnail_id, $images ) {
 
-				if ( '' != $attachment['src'] ) {
-					$images[$attachment['src']] = $image;
-				} elseif ( '' != $attachment['href'] ) {
-					$images[$attachment['href']] = $image;
-				}
+		$attachment = $this->get_attachment( $post_thumbnail_id );
 
+		if ( count( $attachment ) > 0 ) {
+			$image = array();
+
+			if ( '' != $attachment['title'] ) {
+				$image['title'] = $attachment['title'];
+			}
+
+			if ( '' != $attachment['alt'] ) {
+				$image['alt'] = $attachment['alt'];
+			}
+
+			if ( '' != $attachment['src'] ) {
+				$images[$attachment['src']] = $image;
+			} elseif ( '' != $attachment['href'] ) {
+				$images[$attachment['href']] = $image;
 			}
 
 		}
