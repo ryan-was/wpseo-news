@@ -63,10 +63,7 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Setup autoloader
-		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
-		$autoloader = new WPSEO_News_Autoloader();
-		spl_autoload_register( array( $autoloader, 'load' ) );
+		$this->set_autoloader();
 
 		// Add plugin links
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
@@ -104,6 +101,17 @@ class WPSEO_News {
 			$this->init_admin();
 		}
 
+	}
+
+	/**
+	 * Setting up the autoloader
+	 */
+	private function set_autoloader() {
+
+		// Setup autoloader
+		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
+		$autoloader = new WPSEO_News_Autoloader();
+		spl_autoload_register( array( $autoloader, 'load' ) );
 	}
 
 	/**
