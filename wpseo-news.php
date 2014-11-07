@@ -101,23 +101,31 @@ class WPSEO_News {
 		add_action( 'wpseo_head', array( $head, 'add_head_tags' ) );
 
 		if ( is_admin() ) {
-
-			// Edit Post JS
-			global $pagenow;
-			if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
-				add_action( 'admin_head', array( $this, 'edit_post_css' ) );
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
-			}
-
-			// Upgrade Manager
-			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
-			$upgrade_manager->check_update();
-
-			// License Manager
-			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-			$license_manager->setup_hooks();
-			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+			$this->init_admin();
 		}
+
+	}
+
+	/**
+	 * Initialize the admin page
+	 */
+	private function init_admin() {
+		// Edit Post JS
+		global $pagenow;
+
+		if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
+			add_action( 'admin_head', array( $this, 'edit_post_css' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
+		}
+
+		// Upgrade Manager
+		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
+		$upgrade_manager->check_update();
+
+		// License Manager
+		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
+		$license_manager->setup_hooks();
+		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
 
 	}
 
