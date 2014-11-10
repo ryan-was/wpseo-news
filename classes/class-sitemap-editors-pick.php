@@ -60,6 +60,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 
 		$options = WPSEO_News::get_options();
 
+		// Show output as XML
+		header("Content-type: text/xml");
+
 		echo '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		echo '<channel>' . PHP_EOL;
@@ -84,14 +87,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		// Display the items
 		if ( count( $this->items ) > 0 ) {
 			foreach ( $this->items as $item ) {
-				echo '<item>' . PHP_EOL;
-				echo '<title><![CDATA[' . $item['title'] . ']]></title>' . PHP_EOL;
-				echo '<guid isPermaLink="true">' . $item['link'] . '</guid>' . PHP_EOL;
-				echo '<link>' . $item['link'] . '</link>' . PHP_EOL;
-				echo '<description><![CDATA[' . $item['description'] . ']]></description>' . PHP_EOL;
-				echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
-				echo '<pubDate>' . $item['published_on'] . '</pubDate>' . PHP_EOL;
-				echo '</item>' . PHP_EOL;
+				$this->show_item( $item );
 			}
 		}
 
@@ -99,6 +95,22 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '</channel>' . PHP_EOL;
 		echo '</rss>' . PHP_EOL;
 
+	}
+
+	/**
+	 * Showing item as XML
+	 *
+	 * @param array $item
+	 */
+	private function show_item( $item ) {
+		echo '<item>' . PHP_EOL;
+		echo '<title><![CDATA[' . $item['title'] . ']]></title>' . PHP_EOL;
+		echo '<guid isPermaLink="true">' . $item['link'] . '</guid>' . PHP_EOL;
+		echo '<link>' . $item['link'] . '</link>' . PHP_EOL;
+		echo '<description><![CDATA[' . $item['description'] . ']]></description>' . PHP_EOL;
+		echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
+		echo '<pubDate>' . $item['published_on'] . '</pubDate>' . PHP_EOL;
+		echo '</item>' . PHP_EOL;
 	}
 
 }

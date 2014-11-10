@@ -63,10 +63,7 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Setup autoloader
-		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
-		$autoloader = new WPSEO_News_Autoloader();
-		spl_autoload_register( array( $autoloader, 'load' ) );
+		$this->set_autoloader();
 
 		// Add plugin links
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
@@ -101,23 +98,42 @@ class WPSEO_News {
 		add_action( 'wpseo_head', array( $head, 'add_head_tags' ) );
 
 		if ( is_admin() ) {
-
-			// Edit Post JS
-			global $pagenow;
-			if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
-				add_action( 'admin_head', array( $this, 'edit_post_css' ) );
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
-			}
-
-			// Upgrade Manager
-			$upgrade_manager = new WPSEO_News_Upgrade_Manager();
-			$upgrade_manager->check_update();
-
-			// License Manager
-			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-			$license_manager->setup_hooks();
-			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+			$this->init_admin();
 		}
+
+	}
+
+	/**
+	 * Setting up the autoloader
+	 */
+	private function set_autoloader() {
+
+		// Setup autoloader
+		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
+		$autoloader = new WPSEO_News_Autoloader();
+		spl_autoload_register( array( $autoloader, 'load' ) );
+	}
+
+	/**
+	 * Initialize the admin page
+	 */
+	private function init_admin() {
+		// Edit Post JS
+		global $pagenow;
+
+		if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
+			add_action( 'admin_head', array( $this, 'edit_post_css' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
+		}
+
+		// Upgrade Manager
+		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
+		$upgrade_manager->check_update();
+
+		// License Manager
+		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
+		$license_manager->setup_hooks();
+		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
 
 	}
 
