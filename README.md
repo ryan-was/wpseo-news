@@ -18,8 +18,15 @@ Changelog
 =========
 
 ### trunk
+
+### 2.1.1: November 11th, 2014
 * Bugfixes
   * Fixed a bug where button to Editors' Pick RSS didn't work.
+  * Fixed a bug where the wrong image url ended up in the <image:loc> in the Editor's Pick RSS
+  * Fixed a bug where the wrong http header was set for the Editor's Pick RSS
+
+* Enhancement
+  * Added translations for Polish
 
 ### 2.1: July 9th, 2014
 * Several performance optimizations for sitemap generation.
