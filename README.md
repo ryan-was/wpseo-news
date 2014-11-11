@@ -22,7 +22,8 @@ Installation
 Changelog
 =========
 
-### 2.2.1: October 7th, 2014
+### 2.2.1: November 11th, 2014
+
 * Bugfixes
   * Fixed a bug where button to Editors' Pick RSS didn't work.
   * Fixed a bug where the wrong image url ended up in the <image:loc> in the Editor's Pick RSS
