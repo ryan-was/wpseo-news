@@ -2,7 +2,7 @@ News SEO for WordPress SEO
 ==========================
 Requires at least: 3.8<br/>
 Tested up to: 4.0<br/>
-Stable tag: 2.2
+Stable tag: 2.2.1
 Depends: wordpress-seo
 
 
@@ -21,6 +21,14 @@ Installation
 
 Changelog
 =========
+
+### 2.2.1: October 7th, 2014
+* Bugfixes
+  * Fixed a bug where button to Editors' Pick RSS didn't work.
+  * Fixed a bug where the wrong image url ended up in the <image:loc> in the Editor's Pick RSS
+  * Fixed a bug where the wrong http header was set for the Editor's Pick RSS
+* Enhancements
+  *	Added translations for Polish
 
 ### 2.2: October 7th, 2014
 * Bugfixes
