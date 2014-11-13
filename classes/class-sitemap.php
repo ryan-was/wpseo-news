@@ -96,26 +96,25 @@ class WPSEO_News_Sitemap {
 				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
 				$output .= "\t<news:news>\n";
 				$output .= "\t\t<news:publication>" . "\n";
-				$output .= "\t\t\t<news:name>" . htmlspecialchars( $publication_name ) . '</news:name>' . "\n";
+				$output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
 				$output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
 				$output .= "\t\t</news:publication>\n";
 
 				if ( ! empty( $genre ) ) {
-					$output .= "\t\t<news:genres>" . htmlspecialchars( $genre ) . '</news:genres>' . "\n";
+					$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
 				}
 
 				$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
-				$output .= "\t\t<news:title>" . htmlspecialchars( $item->post_title ) . '</news:title>' . "\n";
+				$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
 
 				if ( ! empty( $keywords ) ) {
-					$output .= "\t\t<news:keywords>" . htmlspecialchars( $keywords ) . '</news:keywords>' . "\n";
+					$output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
 				}
 
 				if ( ! empty( $stock_tickers ) ) {
-					$output .= "\t\t<news:stock_tickers>" . htmlspecialchars( $stock_tickers ) . '</news:stock_tickers>' . "\n";
+					$output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
 				}
 
-				$output .= $stock_tickers;
 				$output .= "\t</news:news>\n";
 
 				// Get images
