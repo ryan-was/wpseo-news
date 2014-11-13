@@ -88,13 +88,9 @@ class WPSEO_News_Sitemap {
 
 				}
 
-				$keywords = $this->get_item_keywords( $item->ID );
-				$genre    = $this->get_item_genre( $item->ID );
-
-				$stock_tickers = trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers' ) );
-				if ( $stock_tickers != '' ) {
-					$stock_tickers = "\t\t<stock_tickers>" . htmlspecialchars( $stock_tickers ) . '</stock_tickers>' . "\n";
-				}
+				$keywords      = $this->get_item_keywords( $item->ID );
+				$genre         = $this->get_item_genre( $item->ID );
+				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
 
 				$output .= '<url>' . "\n";
 				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
@@ -113,6 +109,10 @@ class WPSEO_News_Sitemap {
 
 				if ( ! empty( $keywords ) ) {
 					$output .= "\t\t<news:keywords>" . htmlspecialchars( $keywords ) . '</news:keywords>' . "\n";
+				}
+
+				if ( ! empty( $stock_tickers ) ) {
+					$output .= "\t\t<news:stock_tickers>" . htmlspecialchars( $stock_tickers ) . '</news:stock_tickers>' . "\n";
 				}
 
 				$output .= $stock_tickers;
@@ -181,7 +181,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_publication_lang() {
-		$locale           = apply_filters( 'wpseo_locale', get_locale() );
+		$locale = apply_filters( 'wpseo_locale', get_locale() );
 
 		// fallback to 'en', if the length of the locale is less than 2 characters
 		if ( strlen( $locale ) < 2 ) {
@@ -210,7 +210,7 @@ class WPSEO_News_Sitemap {
 		}
 
 		// Create a DateTime object date in the correct timezone
-		$datetime = new DateTime( $item_date , new DateTimeZone( $timezone_string ) );
+		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
 		return $datetime->format( 'c' );
 	}
@@ -315,7 +315,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getting the genre for given item
+	 * Getting the genre for given $item_id
 	 *
 	 * @param integer $item_id
 	 *
@@ -333,6 +333,21 @@ class WPSEO_News_Sitemap {
 		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
 
 		return $genre;
+	}
+
+	/**
+	 * Getting the stock_tickers for given $item_id
+	 *
+	 * @param integer $item_id
+	 *
+	 * @return string
+	 */
+	private function get_item_stock_tickers( $item_id ) {
+		$stock_tickers = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers', $item_id ) ) );
+
+		$stock_tickers = trim( implode( ', ', $stock_tickers ), ', ' );
+
+		return $stock_tickers;
 	}
 
 	/**
