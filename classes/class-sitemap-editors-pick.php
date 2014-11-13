@@ -61,9 +61,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		$options = WPSEO_News::get_options();
 
 		// Show output as XML
-		header( 'Content-Type: application/rss+xml; charset=' . get_bloginfo('charset') );
+		header( 'Content-Type: application/rss+xml; charset=' . get_bloginfo( 'charset' ) );
 
-		echo '<?xml version="1.0" encoding="' . get_bloginfo('charset') . '" ?>' . PHP_EOL;
+		echo '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '" ?>' . PHP_EOL;
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		echo '<channel>' . PHP_EOL;
 
