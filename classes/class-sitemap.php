@@ -88,34 +88,33 @@ class WPSEO_News_Sitemap {
 
 				}
 
-				$keywords = $this->get_item_keywords( $item->ID );
-				$genre    = $this->get_item_genre( $item->ID );
-
-				$stock_tickers = trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers' ) );
-				if ( $stock_tickers != '' ) {
-					$stock_tickers = "\t\t<stock_tickers>" . htmlspecialchars( $stock_tickers ) . '</stock_tickers>' . "\n";
-				}
+				$keywords      = $this->get_item_keywords( $item->ID );
+				$genre         = $this->get_item_genre( $item->ID );
+				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
 
 				$output .= '<url>' . "\n";
 				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
 				$output .= "\t<news:news>\n";
 				$output .= "\t\t<news:publication>" . "\n";
-				$output .= "\t\t\t<news:name>" . htmlspecialchars( $publication_name ) . '</news:name>' . "\n";
+				$output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
 				$output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
 				$output .= "\t\t</news:publication>\n";
 
 				if ( ! empty( $genre ) ) {
-					$output .= "\t\t<news:genres>" . htmlspecialchars( $genre ) . '</news:genres>' . "\n";
+					$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
 				}
 
 				$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
-				$output .= "\t\t<news:title>" . htmlspecialchars( $item->post_title ) . '</news:title>' . "\n";
+				$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
 
 				if ( ! empty( $keywords ) ) {
-					$output .= "\t\t<news:keywords>" . htmlspecialchars( $keywords ) . '</news:keywords>' . "\n";
+					$output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
 				}
 
-				$output .= $stock_tickers;
+				if ( ! empty( $stock_tickers ) ) {
+					$output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
+				}
+
 				$output .= "\t</news:news>\n";
 
 				// Get images
@@ -181,7 +180,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_publication_lang() {
-		$locale           = apply_filters( 'wpseo_locale', get_locale() );
+		$locale = apply_filters( 'wpseo_locale', get_locale() );
 
 		// fallback to 'en', if the length of the locale is less than 2 characters
 		if ( strlen( $locale ) < 2 ) {
@@ -210,7 +209,7 @@ class WPSEO_News_Sitemap {
 		}
 
 		// Create a DateTime object date in the correct timezone
-		$datetime = new DateTime( $item_date , new DateTimeZone( $timezone_string ) );
+		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
 		return $datetime->format( 'c' );
 	}
@@ -315,7 +314,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getting the genre for given item
+	 * Getting the genre for given $item_id
 	 *
 	 * @param integer $item_id
 	 *
@@ -333,6 +332,21 @@ class WPSEO_News_Sitemap {
 		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
 
 		return $genre;
+	}
+
+	/**
+	 * Getting the stock_tickers for given $item_id
+	 *
+	 * @param integer $item_id
+	 *
+	 * @return string
+	 */
+	private function get_item_stock_tickers( $item_id ) {
+		$stock_tickers = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers', $item_id ) ) );
+
+		$stock_tickers = trim( implode( ', ', $stock_tickers ), ', ' );
+
+		return $stock_tickers;
 	}
 
 	/**
