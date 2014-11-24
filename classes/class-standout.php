@@ -16,7 +16,7 @@ class WPSEO_News_Standout {
 
 		if ( is_array( $old_posts ) && count( $old_posts ) >= 1 ) {
 			foreach ( $old_posts as $post ) {
-
+				//echo 'Standout - ' . WPSEO_Meta::get_value( 'sitemap-standout', $post->ID );
 			}
 		}
 
@@ -28,7 +28,14 @@ class WPSEO_News_Standout {
 	 * @return string
 	 */
 	private function get_post_types() {
-		return implode( "','", get_post_types( array( 'public' => true ), 'objects' ) );
+		$types      = array();
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+
+		foreach ( $post_types as $posttype ) {
+			$types[] = $posttype->name;
+		}
+
+		return implode( "','", $types );
 	}
 
 	/**
@@ -40,7 +47,7 @@ class WPSEO_News_Standout {
 		global $wpdb;
 		$post_types = $this->get_post_types();
 
-		$posts = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+		$posts = $wpdb->get_results( "SELECT ID
 									FROM $wpdb->posts
 									WHERE post_status='publish'
 									AND post_type IN ($post_types)
