@@ -88,7 +88,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 		$standout_desc .= '">';
 
-		$standout_desc .= sprintf( __( "You've used %s/%s standout tags.", 'wordpress-seo-news' ), $standout_query->found_posts, $max_standouts );
+		$standout_desc .= sprintf( __( "You've used %s/%s standout tags in the last 7 days.", 'wordpress-seo-news' ), $standout_query->found_posts, $max_standouts );
 
 		$standout_desc .= '</span>';
 

@@ -79,9 +79,6 @@ class WPSEO_News {
 		// Register settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
-		// Manage old standout tags
-		add_action( 'admin_init', array( $this, 'check_old_standout_tags' ) );
-
 		// Meta box
 		$meta_box = new WPSEO_News_Meta_Box();
 		add_filter( 'wpseo_save_metaboxes', array( $meta_box, 'save' ), 10, 1 );
@@ -205,15 +202,6 @@ class WPSEO_News {
 	 */
 	public function register_settings() {
 		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
-	}
-
-	/**
-	 * Check for old standout tags
-	 */
-	public function check_old_standout_tags() {
-		$standout = new WPSEO_News_Standout;
-
-		$standout->remove_old_standouts();
 	}
 
 	/**
