@@ -78,7 +78,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 						'key'   => '_yoast_wpseo_newssitemap-standout',
 						'value' => 'on'
 					)
-				)
+				),
+				'date_query'  => array(
+					'after' 	=> '-7 days',
+				),
 			)
 		);
 
