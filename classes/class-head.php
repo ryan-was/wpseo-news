@@ -21,6 +21,7 @@ class WPSEO_News_Head {
 			 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting news keywords tag
 			 *
 			 * @api string $meta_news_keywords The meta news keywords tag
+			 *
 			 * @param object $post The post
 			 */
 			if ( apply_filters( 'wpseo_news_head_display_keywords', true, $post ) ) {
@@ -34,6 +35,7 @@ class WPSEO_News_Head {
 			 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting original source tag
 			 *
 			 * @api string $meta_news_keywords The meta news keywords tag
+			 *
 			 * @param object $post The post
 			 */
 			if ( apply_filters( 'wpseo_news_head_display_original', true, $post ) ) {
@@ -52,11 +54,12 @@ class WPSEO_News_Head {
 			 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag
 			 *
 			 * @api string $meta_standout The standout tag
+			 *
 			 * @param object $post The post
 			 */
 			if ( apply_filters( 'wpseo_news_head_display_standout', true, $post ) ) {
 				$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $post->ID );
-				if ( 'on' == $meta_standout ) {
+				if ( 'on' == $meta_standout && strtotime( $post->post_date ) >= strtotime( '-7 days' ) ) {
 					echo '<meta name="standout" content="' . get_permalink( $post->ID ) . '"/>' . "\n";
 				}
 			}
