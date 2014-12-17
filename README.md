@@ -2,7 +2,7 @@ News SEO for WordPress SEO
 ==========================
 Requires at least: 3.8<br/>
 Tested up to: 4.0<br/>
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 Depends: wordpress-seo
 
 
@@ -21,6 +21,14 @@ Installation
 
 Changelog
 =========
+
+### 2.2.2 December 17th, 2014
+
+* Bugfixes
+  * The stocktickers didn't work properly, these are fixed
+  * Setting correct HTTP header to be sure output is executed as a RSS-feed
+* Enhancements
+  * The standout tag won't be shown after seven days
 
 ### 2.2.1: November 11th, 2014
 
