@@ -2,7 +2,7 @@ News SEO for WordPress SEO
 ==========================
 Requires at least: 3.8<br/>
 Tested up to: 4.0<br/>
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 Depends: wordpress-seo
 
 
@@ -21,6 +21,15 @@ Installation
 
 Changelog
 =========
+
+### 2.2.2 December 17th, 2014
+
+* Bugfixes
+  * The stocktickers didn't work properly, these are fixed
+  * Setting correct HTTP header to be sure output is executed as a RSS-feed
+* Enhancements
+  * Hide the standout meta-tag automatically after seven days (you can still see standout was used in admin but it won't be displayed)
+  * Show the total number of used standout meta-tags (for the last seven days) in the post-admin
 
 ### 2.2.1: November 11th, 2014
 
