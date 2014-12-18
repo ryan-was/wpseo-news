@@ -28,7 +28,7 @@ Changelog
   * The stocktickers didn't work properly, these are fixed
   * Setting correct HTTP header to be sure output is executed as a RSS-feed
 * Enhancements
-  * Removes the standout meta-tag after seven days automatically
+  * Hide the standout meta-tag automatically after seven days (you can still see standout was used in admin but it won't be displayed)
   * Show the total number of used standout meta-tags (for the last seven days) in the post-admin
 
 ### 2.2.1: November 11th, 2014
