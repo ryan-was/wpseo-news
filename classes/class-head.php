@@ -25,7 +25,7 @@ class WPSEO_News_Head {
 			 * @param object $post The post
 			 */
 			if ( apply_filters( 'wpseo_news_head_display_keywords', true, $post ) ) {
-				$meta_news_keywords = trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $post->ID ) );
+				$meta_news_keywords = WPSEO_News_Meta_Keywords::list_keywords($post->ID);
 				if ( ! empty( $meta_news_keywords ) ) {
 					echo '<meta name="news_keywords" content="' . $meta_news_keywords . '" />' . "\n";
 				}
