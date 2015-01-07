@@ -24,6 +24,9 @@ class WPSEO_News_Meta_Keywords {
 		// Trim each keyword
 		$keywords = array_map( array(self, 'parse_keyword'), $keywords );
 
+		// Make the list of keywords unique
+		$keywords = array_unique( $keywords );
+
 		// If keywords should be returned as string, implode a comma between each keyword
 		if ( $as_string ) {
 			$keywords = trim( implode( ', ', $keywords ), ', ' );
