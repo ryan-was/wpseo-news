@@ -88,7 +88,7 @@ class WPSEO_News_Sitemap {
 
 				}
 
-				$keywords      = $this->get_item_keywords( $item->ID );
+				$keywords      = new WPSEO_News_Meta_Keywords( $item->ID );
 				$genre         = $this->get_item_genre( $item->ID );
 				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
 
@@ -285,32 +285,6 @@ class WPSEO_News_Sitemap {
 									LIMIT 0, 1000" );
 
 		return $items;
-	}
-
-	/**
-	 * Getting the ketwords for given $item_id
-	 *
-	 * @param integer $item_id
-	 *
-	 * @return string
-	 */
-	private function get_item_keywords( $item_id ) {
-		$keywords = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-keywords', $item_id ) ) );
-		$tags     = get_the_terms( $item_id, 'post_tag' );
-		if ( $tags ) {
-			foreach ( $tags as $tag ) {
-				$keywords[] = $tag->name;
-			}
-		}
-
-		// TODO: add suggested keywords to each post based on category, next to the entire site
-		if ( isset( $this->options['default_keywords'] ) && $this->options['default_keywords'] != '' ) {
-			$keywords = array_merge( $keywords, explode( ',', $this->options['default_keywords'] ) );
-		}
-
-		$keywords = strtolower( trim( implode( ', ', $keywords ), ', ' ) );
-
-		return $keywords;
 	}
 
 	/**
