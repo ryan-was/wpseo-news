@@ -41,15 +41,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				"std"         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
 				"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
 				"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
-				"options"     => array(
-					"none"          => __( "None", 'wordpress-seo-news' ),
-					"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
-					"satire"        => __( "Satire", 'wordpress-seo-news' ),
-					"blog"          => __( "Blog", 'wordpress-seo-news' ),
-					"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
-					"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
-					"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
-				),
+				"options"     => $this->genre_list(),
 				'serialized'  => true,
 			),
 			'newssitemap-original'     => array(
@@ -84,7 +76,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		return $mbs;
 	}
-
 
 	/**
 	 * Add the meta boxes to meta box array so they get saved
@@ -137,6 +128,23 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
+	}
+
+	/**
+	 * The list with genres
+	 *
+	 * @return array
+	 */
+	private function genre_list() {
+		return array(
+			"none"          => __( "None", 'wordpress-seo-news' ),
+			"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
+			"satire"        => __( "Satire", 'wordpress-seo-news' ),
+			"blog"          => __( "Blog", 'wordpress-seo-news' ),
+			"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
+			"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
+			"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
+		);
 	}
 
 	/**
