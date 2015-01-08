@@ -88,7 +88,7 @@ class WPSEO_News_Sitemap {
 
 				}
 
-				$keywords      = WPSEO_News_Meta_Keywords::list_keywords( $item->ID );
+				$keywords      = new WPSEO_News_Meta_Keywords( $item->ID );
 				$genre         = $this->get_item_genre( $item->ID );
 				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
 
