@@ -299,6 +299,34 @@ class WPSEO_News {
 		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
+	// HELPERS
+
+	/**
+	 * Getting the post_types based on the included post_types option.
+	 *
+	 * The variable $post_types is static, because it won't change during pageload, but the method may be called multiple
+	 * times. First time it will set the value, second time it will return this value.
+	 *
+	 * @return array
+	 */
+	public static function get_included_post_types() {
+		static $post_types;
+
+		if($post_types === null ) {
+			$options = self::get_options();
+
+			// Get supported post types
+			$post_types = array();
+			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
+				if ( isset( $options['newssitemap_include_' . $post_type->name] ) && ( 'on' == $options['newssitemap_include_' . $post_type->name] ) ) {
+					$post_types[] = $post_type->name;
+				}
+			}
+		}
+
+	  return $post_types;
+	}
+
 }
 
 // Load text domain
