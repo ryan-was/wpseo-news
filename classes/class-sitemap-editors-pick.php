@@ -2,9 +2,26 @@
 
 class WPSEO_News_Sitemap_Editors_Pick {
 
+	/**
+	 * Store the editors pick
+	 *
+	 * @var array
+	 */
 	private $items;
 
+	/**
+	 * Store the WPSEO-News options
+	 * @var array
+	 */
+	private $options;
+
+	/**
+	 * Construct the Class-Sitemap-Editors-Pick rss feed generator. We set the WP Seo options and we
+	 * find the editors pick items and store them in the $items var
+	 */
 	public function __construct() {
+		$this->options = WPSEO_News::get_options();
+
 		$this->prepare_items();
 	}
 
@@ -21,7 +38,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		// EP Query
 		$ep_query = new WP_Query(
 			array(
-				'post_type'   => 'any',
+				'post_type'   => $this->get_post_types(),
 				'post_status' => 'publish',
 				'meta_query'  => array(
 					array(
@@ -43,7 +60,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 					'link'         => get_permalink(),
 					'description'  => get_the_excerpt(),
 					'creator'      => get_the_author_meta( 'display_name' ),
-					'published_on' => get_the_date(DATE_RFC822),
+					'published_on' => get_the_date( DATE_RFC822 ),
 				);
 			}
 		}
@@ -111,6 +128,28 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<dc:creator><![CDATA[' . $item['creator'] . ']]></dc:creator>' . PHP_EOL;
 		echo '<pubDate>' . $item['published_on'] . '</pubDate>' . PHP_EOL;
 		echo '</item>' . PHP_EOL;
+	}
+
+	/**
+	 * Getting the post_types which will be displayed in the editorspick rss feed
+	 *
+	 * @return array|string
+	 */
+	private function get_post_types() {
+
+		// Get supported post types
+		$post_types = array();
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
+			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
+				$post_types[] = $posttype->name;
+			}
+		}
+
+		if ( count( $post_types ) == 0 ) {
+			$post_types[] = 'post';
+		}
+
+		return $post_types;
 	}
 
 }
