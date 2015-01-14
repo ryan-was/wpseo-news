@@ -233,11 +233,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$standout_desc .= '<br />';
 
 		$standout_desc .= sprintf(
-			__( 'Note: Google has a limit of %s stand out tags per seven days. Using more tags can cause deletion by Google. See for more information %2$sthis Google page%3$s.', 'wordpress-seo-news' ),
-			$this->max_standouts,
-			'<a href="https://support.google.com/news/publisher/answer/191283?hl=en">',
-			'</a>'
+			__('Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news'),
+			$this->max_standouts
 		);
+
 		$standout_desc .= '<br />';
 
 		$standout_desc .= '<span style="font-weight:bold;';
