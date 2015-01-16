@@ -253,8 +253,6 @@ class WPSEO_News_Sitemap {
 
 		if ( count( $post_types ) > 0 ) {
 			$post_types = "'" . implode( "','", $post_types ) . "'";
-		} else {
-			$post_types = "'post'";
 		}
 
 		return $post_types;

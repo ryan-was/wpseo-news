@@ -162,7 +162,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			$is_supported = false;
 
 			// Get supported post types
-			$post_types = $this->get_post_types();
+			$post_types = WPSEO_News::get_included_post_types();
 
 			// Display content if post type is supported
 			if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
@@ -171,26 +171,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		return $is_supported;
-	}
-
-	/**
-	 * Getting array with the post types to include in sitemap
-	 *
-	 * @return array
-	 */
-	private function get_post_types() {
-		static $post_types;
-
-		if ( $post_types === null ) {
-			$post_types = WPSEO_News::get_included_post_types();
-
-			// Support post if no post types are supported
-			if ( empty( $post_types ) ) {
-				$post_types[] = 'post';
-			}
-		}
-
-		return $post_types;
 	}
 
 	/**

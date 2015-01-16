@@ -322,6 +322,11 @@ class WPSEO_News {
 					$post_types[] = $post_type->name;
 				}
 			}
+
+			// Support post if no post types are supported
+			if ( empty( $post_types ) ) {
+				$post_types[] = 'post';
+			}
 		}
 
 	  return $post_types;
