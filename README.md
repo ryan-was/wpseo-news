@@ -1,8 +1,8 @@
 News SEO for WordPress SEO
 ==========================
-Requires at least: 3.8<br/>
-Tested up to: 4.0<br/>
-Stable tag: 2.2.2
+Requires at least: 3.8  
+Tested up to: 4.0  
+Stable tag: 2.2.2  
 Depends: wordpress-seo
 
 
