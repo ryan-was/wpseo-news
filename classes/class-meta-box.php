@@ -4,6 +4,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	private $options;
 
+	/**
+	 * @var int    The maximum number of standout tags allowed.
+	 */
+	private $max_standouts = 7;
+
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
 	}
@@ -16,99 +21,57 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array $mbs
 	 */
 	public function get_meta_boxes( $post_type = 'post' ) {
-		$mbs                             = array();
-		$stdgenre                        = ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog';
-		$mbs['newssitemap-exclude']      = array(
-			"name"  => "newssitemap-exclude",
-			"type"  => "checkbox",
-			"std"   => "on",
-			"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
-		);
-		$mbs['newssitemap-keywords']     = array(
-			"name"        => "newssitemap-keywords",
-			"type"        => "text",
-			"std"         => "",
-			"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
-			"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
-		);
-		$mbs['newssitemap-genre']        = array(
-			"name"        => "newssitemap-genre",
-			"type"        => "multiselect",
-			"std"         => $stdgenre,
-			"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
-			"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
-			"options"     => array(
-				"none"          => __( "None", 'wordpress-seo-news' ),
-				"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
-				"satire"        => __( "Satire", 'wordpress-seo-news' ),
-				"blog"          => __( "Blog", 'wordpress-seo-news' ),
-				"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
-				"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
-				"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
+		$mbs = array(
+			'newssitemap-exclude'      => array(
+				"name"  => "newssitemap-exclude",
+				"type"  => "checkbox",
+				"std"   => "on",
+				"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
 			),
-			'serialized'  => true,
-		);
-		$mbs['newssitemap-original']     = array(
-			"name"        => "newssitemap-original",
-			"std"         => "",
-			"type"        => "text",
-			"title"       => __( "Original Source", 'wordpress-seo-news' ),
-			"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
-		);
-		$mbs['newssitemap-stocktickers'] = array(
-			"name"        => "newssitemap-stocktickers",
-			"std"         => "",
-			"type"        => "text",
-			"title"       => __( "Stock Tickers", 'wordpress-seo-news' ),
-			"description" => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
-		);
-
-		// Default standout description
-		$standout_desc = 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.<br/>';
-
-		$max_standouts = 7;
-
-		// Count standout tags
-		$standout_query = new WP_Query(
-			array(
-				'post_type'   => 'any',
-				'post_status' => 'publish',
-				'meta_query'  => array(
-					array(
-						'key'   => '_yoast_wpseo_newssitemap-standout',
-						'value' => 'on'
-					)
-				),
-				'date_query'  => array(
-					'after' 	=> '-7 days',
-				),
-			)
-		);
-
-		$standout_desc .= '<span style="font-weight:bold;';
-		if ( $standout_query->found_posts > $max_standouts ) {
-			$standout_desc .= 'color:#ff0000';
-		}
-		$standout_desc .= '">';
-
-		$standout_desc .= sprintf( __( "You've used %s/%s standout tags in the last 7 days.", 'wordpress-seo-news' ), $standout_query->found_posts, $max_standouts );
-
-		$standout_desc .= '</span>';
-
-		$mbs['newssitemap-standout'] = array(
-			"name"        => "newssitemap-standout",
-			"std"         => "",
-			"type"        => "checkbox",
-			"title"       => __( "Standout", 'wordpress-seo-news' ),
-			"description" => $standout_desc,
-		);
-
-		$mbs['newssitemap-editors-pick'] = array(
-			"name"        => "newssitemap-editors-pick",
-			"std"         => "",
-			"type"        => "checkbox",
-			"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
-			"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
+			'newssitemap-keywords'     => array(
+				"name"        => "newssitemap-keywords",
+				"type"        => "text",
+				"std"         => "",
+				"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
+				"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
+			),
+			'newssitemap-genre'        => array(
+				"name"        => "newssitemap-genre",
+				"type"        => "multiselect",
+				"std"         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
+				"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
+				"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
+				"options"     => $this->genre_list(),
+				'serialized'  => true,
+			),
+			'newssitemap-original'     => array(
+				"name"        => "newssitemap-original",
+				"std"         => "",
+				"type"        => "text",
+				"title"       => __( "Original Source", 'wordpress-seo-news' ),
+				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+			),
+			'newssitemap-stocktickers' => array(
+				"name"        => "newssitemap-original",
+				"std"         => "",
+				"type"        => "text",
+				"title"       => __( "Original Source", 'wordpress-seo-news' ),
+				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+			),
+			'newssitemap-standout'     => array(
+				"name"        => "newssitemap-standout",
+				"std"         => "",
+				"type"        => "checkbox",
+				"title"       => __( "Standout", 'wordpress-seo-news' ),
+				"description" => $this->standout_description(),
+			),
+			'newssitemap-editors-pick' => array(
+				"name"        => "newssitemap-editors-pick",
+				"std"         => "",
+				"type"        => "checkbox",
+				"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
+				"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
+			),
 		);
 
 		return $mbs;
@@ -146,56 +109,17 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * The tab header
 	 */
 	public function header() {
-		global $post;
-
-		// Get supported post types
-		$post_types = array();
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
-				$post_types[] = $posttype->name;
-			}
+		if ( $this->is_post_type_supported() ) {
+			echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 		}
-
-		// Display tab if post type is supported
-		if ( count( $post_types ) > 0 ) {
-			foreach ( $post_types as $post_type ) {
-				if ( $post->post_type == $post_type ) {
-					echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
-				}
-			}
-		} else {
-			// Support post if no post types are supported
-			if ( $post->post_type == 'post' ) {
-				echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
-			}
-		}
-
 	}
 
 	/**
 	 * The tab content
 	 */
 	public function content() {
-		global $post;
-
-		// Get supported post types
-		$post_types = array();
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
-				$post_types[] = $posttype->name;
-			}
-		}
-
-		// Display content if post type is supported
-		if ( count( $post_types ) > 0 ) {
-			if ( ! in_array( $post->post_type, $post_types ) ) {
-				return;
-			}
-		} else {
-			// Support post if no post types are supported
-			if ( $post->post_type != 'post' ) {
-				return;
-			}
+		if ( ! $this->is_post_type_supported() ) {
+			return;
 		}
 
 		// Build tab content
@@ -206,5 +130,129 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
 	}
 
+	/**
+	 * The list with genres
+	 *
+	 * @return array
+	 */
+	private function genre_list() {
+		return array(
+			"none"          => __( "None", 'wordpress-seo-news' ),
+			"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
+			"satire"        => __( "Satire", 'wordpress-seo-news' ),
+			"blog"          => __( "Blog", 'wordpress-seo-news' ),
+			"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
+			"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
+			"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
+		);
+	}
+
+	/**
+	 * Check if current post_type is supported
+	 *
+	 * @return bool
+	 */
+	private function is_post_type_supported() {
+		static $is_supported;
+
+		if ( $is_supported === null ) {
+			global $post;
+
+			// Default is false
+			$is_supported = false;
+
+			// Get supported post types
+			$post_types = $this->get_post_types();
+
+			// Display content if post type is supported
+			if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
+				$is_supported = true;
+			}
+		}
+
+		return $is_supported;
+	}
+
+	/**
+	 * Getting array with the post types to include in sitemap
+	 *
+	 * @return array
+	 */
+	private function get_post_types() {
+		static $post_types;
+
+		if ( $post_types === null ) {
+			$post_types = WPSEO_News::get_included_post_types();
+
+			// Support post if no post types are supported
+			if ( empty( $post_types ) ) {
+				$post_types[] = 'post';
+			}
+		}
+
+		return $post_types;
+	}
+
+	/**
+	 * Count the total number of used standouts
+	 *
+	 * @return mixed
+	 */
+	private function standouts_used() {
+		// Count standout tags
+		$standout_query = new WP_Query(
+			array(
+				'post_type'   => 'any',
+				'post_status' => 'publish',
+				'meta_query'  => array(
+					array(
+						'key'   => '_yoast_wpseo_newssitemap-standout',
+						'value' => 'on'
+					)
+				),
+				'date_query'  => array(
+					'after' => '-7 days',
+				),
+			)
+		);
+
+		return $standout_query->found_posts;
+	}
+
+	/**
+	 * Generates the standout description
+	 *
+	 * @return string
+	 */
+	private function standout_description() {
+
+		$used_standouts = $this->standouts_used();
+
+		// Default standout description
+		$standout_desc = __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' );
+		$standout_desc .= '<br />';
+
+		$standout_desc .= sprintf(
+			__('Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news'),
+			$this->max_standouts
+		);
+
+		$standout_desc .= '<br />';
+
+		$standout_desc .= '<span style="font-weight:bold;';
+		if ( $used_standouts > $this->max_standouts ) {
+			$standout_desc .= 'color:#ff0000';
+		}
+		$standout_desc .= '">';
+		$standout_desc .= sprintf(
+			__( "You've used %s/%s standout tags in the last 7 days.", 'wordpress-seo-news' ),
+			$used_standouts,
+			$this->max_standouts
+		);
+
+		$standout_desc .= '</span>';
+
+		return $standout_desc;
+	}
 
 }

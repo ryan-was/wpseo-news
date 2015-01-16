@@ -249,12 +249,7 @@ class WPSEO_News_Sitemap {
 	private function get_post_types() {
 
 		// Get supported post types
-		$post_types = array();
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			if ( isset( $this->options['newssitemap_include_' . $posttype->name] ) && ( 'on' == $this->options['newssitemap_include_' . $posttype->name] ) ) {
-				$post_types[] = $posttype->name;
-			}
-		}
+		$post_types = WPSEO_News::get_included_post_types();
 
 		if ( count( $post_types ) > 0 ) {
 			$post_types = "'" . implode( "','", $post_types ) . "'";
