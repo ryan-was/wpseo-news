@@ -2,8 +2,17 @@
 
 class WPSEO_News_Sitemap_Editors_Pick {
 
+	/**
+	 * Store the editors pick
+	 *
+	 * @var array
+	 */
 	private $items;
 
+	/**
+	 * Construct the Class-Sitemap-Editors-Pick rss feed generator. We set the WP Seo options and we
+	 * find the editors pick items and store them in the $items var
+	 */
 	public function __construct() {
 		$this->prepare_items();
 	}
@@ -21,7 +30,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		// EP Query
 		$ep_query = new WP_Query(
 			array(
-				'post_type'   => 'any',
+				'post_type'   => WPSEO_News::get_included_post_types(),
 				'post_status' => 'publish',
 				'meta_query'  => array(
 					array(
@@ -43,14 +52,13 @@ class WPSEO_News_Sitemap_Editors_Pick {
 					'link'         => get_permalink(),
 					'description'  => get_the_excerpt(),
 					'creator'      => get_the_author_meta( 'display_name' ),
-					'published_on' => get_the_date(DATE_RFC822),
+					'published_on' => get_the_date( DATE_RFC822 ),
 				);
 			}
 		}
 
 		/* Restore original Post Data */
 		wp_reset_postdata();
-
 	}
 
 	/**
